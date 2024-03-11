@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\appointments;
+use App\Models\appointment;
 
 use Illuminate\Http\Request;
 
-class appointmentsController extends Controller
+class AppointmentController extends Controller
 {
     public function index()
     {
-        $allAppointments = appointments::all();
-        return view('appointments.index', ['appointments' => $allAppointments]);
+        $AllAppointment = appointment::all();
+        return view('appointment.index', ['appointments' => $AllAppointment]);
     }
 
     public function create()
     {
-        return view('appointments.create');
+        return view('appointment.create');
     }
 
     public function store(Request $request)
@@ -32,8 +32,8 @@ class appointmentsController extends Controller
         $data['created_at'] = now();
         $data['booked_at'] = now();
 
-        $newAppointment = appointments::create($data);
+        $newAppointment = appointment::create($data);
 
-        return redirect(route('appointments.index'))->with('success', 'Appointment created successfully!');
+        return redirect(route('appointment.index'))->with('success', 'Appointment created successfully!');
     }
 }
