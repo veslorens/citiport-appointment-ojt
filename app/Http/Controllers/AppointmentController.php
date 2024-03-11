@@ -10,9 +10,14 @@ class AppointmentController extends Controller
 {
     public function index()
     {
-        $AllAppointment = appointment::all();
-        return view('appointment.index', ['appointments' => $AllAppointment]);
+        // $AllAppointment = appointment::all();
+        // return view('appointment.index', ['appointments' => $AllAppointment]);
+
+        $appointments = Appointment::paginate(10); // 10 items per page
+        return view('appointment.index', ['appointments' => $appointments]);
     }
+
+
 
     public function create()
     {

@@ -53,7 +53,15 @@
                 @endforeach
             </tbody>
         </table>
+        
+  <!-- Bootstrap Pagination Links -->
+
+        {{ $appointments->links('pagination::bootstrap-4') }}
     </div>
+
+ 
+
+
 </div>
 
 
