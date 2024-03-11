@@ -3169,20 +3169,20 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v6.4.3",
+            "version": "v7.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "ee0f7ed5cf298cc019431bb3b3977ebc52b86229"
+                "reference": "ec60a4edf94e63b0556b6a0888548bb400a3a3be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/ee0f7ed5cf298cc019431bb3b3977ebc52b86229",
-                "reference": "ee0f7ed5cf298cc019431bb3b3977ebc52b86229",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/ec60a4edf94e63b0556b6a0888548bb400a3a3be",
+                "reference": "ec60a4edf94e63b0556b6a0888548bb400a3a3be",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.1"
+                "php": ">=8.2"
             },
             "type": "library",
             "autoload": {
@@ -3214,7 +3214,7 @@
             "description": "Converts CSS selectors to XPath expressions",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/css-selector/tree/v6.4.3"
+                "source": "https://github.com/symfony/css-selector/tree/v7.0.3"
             },
             "funding": [
                 {
@@ -3230,7 +3230,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-23T14:51:35+00:00"
+            "time": "2024-01-23T15:02:46+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -7806,5 +7806,5 @@
         "php": "^7.3|^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }

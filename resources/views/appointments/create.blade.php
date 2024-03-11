@@ -8,9 +8,8 @@
     <title>Appointment Form</title>
 
     <!-- Bootstrap 5 CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-        integrity="sha384-eUHq0shVfBe5O8uqwnAiczL/MCmNqdZ6PM5beW6tk8KZMLZuBlIbWEbGaxbN0Uq9" crossorigin="anonymous">
-
+     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+     
     <style>
         body {
             background-color: #f8f9fa;
