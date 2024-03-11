@@ -6,20 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- Link to Bootstrap 5 CSS -->
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-
+    <link href="{{ asset('css/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/index.css') }}" rel="stylesheet">
+    
     <title>Appointment</title>
 </head>
 
-<style>
-    h1 {
-        margin-top: 10px;
-        background-color: #007bff;
-        border-radius: 3px;
-        padding-bottom: 5px;
-        padding-left: 3px;
-    }
-</style>
 
 <body>
    @if (session('success'))
@@ -65,7 +57,7 @@
 </div>
 
 
-    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap/bootstrap.bundle.min.js') }}"></script>
     <script>
         // Automatically close the success alert after 2 seconds
         document.addEventListener("DOMContentLoaded", function () {
