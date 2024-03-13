@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class appointment extends Model
+class Appointment extends Model
 {
     use HasFactory;
 
@@ -15,6 +15,6 @@ class appointment extends Model
         'office',
         'status',
         'booked_at',
-        'created_a',
+        'created_at',
     ];
 }

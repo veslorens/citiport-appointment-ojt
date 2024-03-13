@@ -10,18 +10,18 @@ class AppointmentController extends Controller
 {
     public function index()
     {
-        // $AllAppointment = appointment::all();
-        // return view('appointment.index', ['appointments' => $AllAppointment]);
-
-        $appointments = Appointment::paginate(10); // 10 items per page
-        return view('appointment.index', ['appointments' => $appointments]);
+        $appointment = appointment::paginate(10);
+        return view('appointment.index', ['appointments' => $appointment]);
     }
-
-
 
     public function create()
     {
         return view('appointment.create');
+    }
+
+    public function schedule()
+    {
+        return view('appointment.schedule');
     }
 
     public function store(Request $request)
@@ -31,14 +31,12 @@ class AppointmentController extends Controller
             'service_type' => 'required|string|max:100',
             'office' => 'required|string|max:100',
         ]);
-
         // Set default values and timestamps
         $data['status'] = 'Pending';
         $data['created_at'] = now();
         $data['booked_at'] = now();
 
-        $newAppointment = appointment::create($data);
-
+        $NewAppointment = Appointment::create($data);
         return redirect(route('appointment.index'))->with('success', 'Appointment created successfully!');
     }
 }
