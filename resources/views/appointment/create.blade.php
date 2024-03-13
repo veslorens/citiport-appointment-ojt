@@ -1,30 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Appointment Form</title>
+@section('title', 'Appointment Form')
 
-    <!-- Bootstrap 5 CSS -->
-     <link href="{{ asset('css/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/create.css') }}" rel="stylesheet">
-     
-  
-</head>
-
-<body>
-    <div class="container mt-5">
+@section('content')
+    <div class="container mt-4">
         <h1>Appointment Form</h1>
-
         <!-- Bootstrap 5 Form -->
-        <form id="createForm" method="post" action="{{ route('appointment.store') }}"
-            onsubmit="return validateForm()">
+        <form id="createForm" method="post" action="{{ route('appointment.store') }}" onsubmit="return validateForm()">
             @csrf <!-- CSRF Token -->
             @method('post')
-
-            <!-- Service Name Dropdown -->
             <div class="mb-3">
                 <label for="service_name" class="form-label">Service Name:</label>
                 <br>
@@ -36,7 +20,7 @@
                 <div id="serviceNameError" class="error"></div>
             </div>
 
-            <!-- Service Type Dropdown -->
+
             <div class="mb-3">
                 <label for="service_type" class="form-label">Service Type:</label>
                 <br>
@@ -58,12 +42,8 @@
                 </select>
                 <div id="officeError" class="error"></div>
             </div>
-
             <!-- Input Button -->
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
-
-</body>
-
-</html>
+@endsection
