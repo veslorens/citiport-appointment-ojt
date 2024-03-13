@@ -40,3 +40,4 @@ class AppointmentController extends Controller
         return redirect(route('appointment.index'))->with('success', 'Appointment created successfully!');
     }
 }
+
