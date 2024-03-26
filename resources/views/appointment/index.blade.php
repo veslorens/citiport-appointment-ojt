@@ -17,10 +17,9 @@
             <div class="row">
                 <div class="col-md-9"></div>
                 <div class="col-md-3">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#createAppointmentModal">
-                        Create Appointment
-                    </button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAppointmentModal" style="margin: 10px;">
+                        <i class="fa-solid fa-circle-plus"></i> Create Appointment
+                    </button>                    
                 </div>
             </div>
         </div>
@@ -54,26 +53,29 @@
                             <td>{{ $appointment->created_at }}</td>
                             <td>{{ $appointment->updated_at }}</td>
                             <td>
-                                </a>
-
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-primary editAppointmentButton" style="width: 100px;"
-                                    data-bs-toggle="modal" data-bs-target="#editAppointmentModal"
-                                    data-id="{{ $appointment->id }}" data-service-name="{{ $appointment->service_name }}"
-                                    data-service-type="{{ $appointment->service_type }}"
-                                    data-office="{{ $appointment->office }}" data-status="{{ $appointment->status }}">
-                                    Edit
-                                </button>
-
-                                <button type="button" class="btn btn-danger" style="width: 100px; display: inline-block;"
-                                    data-bs-target="#deleteAppointmentModal" data-bs-toggle="modal"
-                                    onclick="showDeleteConfirmation({{ $appointment->id }})">Delete</button>
+                                <div class="btn-group" role="actions">    
+                                    <button type="button" class="btn btn-primary editAppointmentButton" style="width: 60px; font-size: 15px;"
+                                        data-bs-toggle="modal" data-bs-target="#editAppointmentModal"
+                                        data-id="{{ $appointment->id }}" data-service-name="{{ $appointment->service_name }}"
+                                        data-service-type="{{ $appointment->service_type }}"
+                                        data-office="{{ $appointment->office }}" data-status="{{ $appointment->status }}">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </button>
+                                
+                                    <button type="button" class="btn btn-danger" style="width: 60px; font-size: 15px;"
+                                        data-bs-target="#deleteAppointmentModal" data-bs-toggle="modal"
+                                        onclick="showDeleteConfirmation({{ $appointment->id }})"><i class="fa-solid fa-trash"></i></button>
+                                </div>
+                                
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-            {{ $appointments->links('pagination::bootstrap-4') }}
+            <div class="d-flex justify-content-end">
+                {{ $appointments->links('pagination::bootstrap-4') }}
+            </div>
         </div>
     </div>
 
