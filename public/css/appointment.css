@@ -83,6 +83,6 @@
     border: 0px;
 }
 
-.fc .fc-day-other .fc-daygrid-day-top {
-    opacity: 0;
+.fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
+    min-height: 1em;
 }

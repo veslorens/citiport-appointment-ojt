@@ -30,7 +30,6 @@
                 <div id="serviceTypeError" class="error"></div>
             </div>
 
-            <!-- Office Dropdown -->
             <div class="mb-3">
                 <label for="office" class="form-label">Office:</label>
                 <br>
@@ -41,7 +40,7 @@
                 <div id="officeError" class="error"></div>
             </div>
             <!-- Input Button -->
-            <button type="submit" class="btn btn-primary">Next</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
 @endsection

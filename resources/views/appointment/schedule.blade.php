@@ -9,7 +9,7 @@
                 <div class="mt-2">
                     <h2 for="service_name" class="form-label">Service Name:</h2>
                 </div>
-                <div class="">
+                <div>
                     <form id="form1">
                         <div class="mb-3">
                             <label for="service_name" class="form-label">Service Name:</label>
