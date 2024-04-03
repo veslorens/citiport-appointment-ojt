@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\appointment;
+use App\Models\Appointment;
 
 use Illuminate\Http\Request;
 
@@ -10,7 +10,7 @@ class AppointmentController extends Controller
 {
     public function index()
     {
-        $appointment = appointment::paginate(10);
+        $appointment = Appointment::paginate(10);
         return view('appointment.index', ['appointments' => $appointment]);
     }
 
@@ -23,9 +23,6 @@ class AppointmentController extends Controller
     {
         return view('appointment.schedule');
     }
-
-    
-   
 
     public function store(Request $request)
     {
@@ -44,30 +41,29 @@ class AppointmentController extends Controller
     }
 
     public function edit(Appointment $appointment)
-{
-    return view('appointment.edit', compact('appointment'));
-}
+    {
+        return view('appointment.edit', compact('appointment'));
+    }
 
-    
 
-    public function update (Appointment $appointment, Request $request){
+
+    public function update(Appointment $appointment, Request $request)
+    {
         $data = $request->validate([
             'service_name' => 'required|string|max:100',
             'service_type' => 'required|string|max:100',
             'office' => 'required|string|max:100',
             'status' => 'required|string|max:100',
-            
+
         ]);
 
         $appointment->update($data);
         return redirect(route('appointment.index'))->with('success', 'Appointment updated Successfully');
     }
 
-    public function destroy(Appointment $appointment){
+    public function destroy(Appointment $appointment)
+    {
         $appointment->delete();
         return redirect(route('appointment.index'))->with('success', 'Appointment deleted Successfully');
-
     }
-    
 }
-

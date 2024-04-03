@@ -15,20 +15,12 @@
 </head>
 
 <body>
-    <header>
-
-    </header>
-
+    
     <div class="content">
         @yield('content')
     </div>
 
-    <footer>
-
-    </footer>
-
-    <script rel="stylesheet" src="{{ asset('js/bootstrap/bootstrap.min.js') }}"> </script>
-    
+    <script rel="stylesheet" src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
 </body>
 
 </html>
