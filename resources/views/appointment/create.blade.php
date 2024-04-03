@@ -5,7 +5,6 @@
 @section('content')
     <div class="container mt-4">
         <h1>Appointment Form</h1>
-        <!-- Bootstrap 5 Form -->
         <form id="createForm" method="post" action="{{ route('appointment.store') }}" onsubmit="return validateForm()">
             @csrf
             @method('post')
