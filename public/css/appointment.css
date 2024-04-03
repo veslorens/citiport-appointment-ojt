@@ -1,0 +1,88 @@
+/* div {
+    border: black solid 1px;
+} */
+
+.container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+/* calendar */
+#calendar {
+    height: auto;
+}
+
+.scheduleAvailable {
+    background-color: #4fffb0;
+    color: green;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.scheduleFullyBooked {
+    background-color: #f08080;
+    color: red;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+@media (max-width: 767px) {
+    .space {
+        height: auto;
+    }
+}
+
+.radio {
+    margin-bottom: 10px;
+}
+.fc-col-header-cell-cushion {
+    color: black;
+}
+
+.fc-daygrid-day-frame fc-scrollgrid-sync-inner {
+    height: 10px;
+}
+.fc-theme-standard td,
+.fc-theme-standard th {
+    border: none;
+}
+.fc-daygrid-day-number {
+    font-style: normal;
+    text-decoration: none; /* Remove underlines */
+    color: #696969;
+}
+.fc .fc-toolbar.fc-header-toolbar {
+    margin-bottom: 1px;
+}
+.gridcell {
+    height: 10px;
+}
+
+.fc .fc-daygrid-day-top {
+    display: block;
+    font-size: 14px;
+}
+
+.fc .fc-day-other .fc-event-title-container {
+    background-color: white !important;
+}
+.fc-h-event {
+    border: transparent;
+    background-color: #4fffb0;
+}
+.fc-h-event .fc-event-title-container {
+    text-align: center;
+}
+
+.clicked-event {
+    background-color: #6cb4ee;
+}
+
+.fc .fc-scrollgrid-liquid {
+    border: 0px;
+}
+
+.fc .fc-day-other .fc-daygrid-day-top {
+    opacity: 0;
+}

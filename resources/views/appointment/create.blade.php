@@ -5,9 +5,8 @@
 @section('content')
     <div class="container mt-4">
         <h1>Appointment Form</h1>
-        <!-- Bootstrap 5 Form -->
         <form id="createForm" method="post" action="{{ route('appointment.store') }}" onsubmit="return validateForm()">
-            @csrf <!-- CSRF Token -->
+            @csrf
             @method('post')
             <div class="mb-3">
                 <label for="service_name" class="form-label">Service Name:</label>
@@ -19,7 +18,6 @@
                 </select>
                 <div id="serviceNameError" class="error"></div>
             </div>
-
 
             <div class="mb-3">
                 <label for="service_type" class="form-label">Service Type:</label>
@@ -43,7 +41,7 @@
                 <div id="officeError" class="error"></div>
             </div>
             <!-- Input Button -->
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Next</button>
         </form>
     </div>
 @endsection

@@ -5,7 +5,6 @@
 
 @section('content')
 
-
     <div class="container mx-auto mt-4">
 
         <!-- Notification Success-->
