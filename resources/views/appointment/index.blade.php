@@ -5,11 +5,19 @@
 @section('content')
 
     <div class="container mx-auto mt-4">
-        <div id="success-alert" class="alert alert-success alert-dismissible fade" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+
+        @if (session('success'))
+            <div id="success-alert" class="alert alert-success mx-auto mt-4">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div id="error-alert" class="alert alert-danger mx-auto mt-4">
+                {{ session('error') }}
+            </div>
+        @endif
+
 
         <h1 class="text-3xl font-semibold mb-4">Appointments List</h1>
 
@@ -67,9 +75,11 @@
 
                                     <button type="button" class="btn btn-danger" style="width: 60px; font-size: 15px;"
                                         data-bs-target="#deleteAppointmentModal" data-bs-toggle="modal"
-                                        onclick="showDeleteConfirmation({{ $appointment->id }})"><i
-                                            class="fa-solid fa-trash"></i></button>
+                                        onclick="showDeleteConfirmation({{ $appointment->id }})">
+                                        <i class="fa-solid fa-trash"></i></button>
                                 </div>
+
+
 
                             </td>
                         </tr>
@@ -77,79 +87,24 @@
                 </tbody>
             </table>
             <div class="d-flex justify-content-end">
-                {{ $appointments->links('pagination::bootstrap-4') }}
+                {{ $appointments->appends(['page' => $currentPage])->links('pagination::bootstrap-4') }}
             </div>
         </div>
     </div>
 
-
     <script>
-        // Function to handle edit appointment button clicks
-        function handleEditAppointmentButtonClick() {
-            document.querySelectorAll('.editAppointmentButton').forEach(button => {
-                button.addEventListener('click', function() {
-                    const id = this.getAttribute('data-id');
-                    const serviceName = this.getAttribute('data-service-name');
-                    const serviceType = this.getAttribute('data-service-type');
-                    const office = this.getAttribute('data-office');
-                    const status = this.getAttribute('data-status');
-
-                    const editForm = document.getElementById('editForm');
-                    editForm.action = `/appointment/update/${id}`;
-
-                    setValue('service_name', serviceName);
-                    setValue('service_type', serviceType);
-                    setValue('office', office);
-                    setValue('status', status);
-                });
-            });
+    setTimeout(function() {
+        const alertElement = document.querySelector('.alert');
+        if (alertElement) {
+            alertElement.classList.add('fade-out');
+            setTimeout(function() {
+                alertElement.style.display = 'none';
+                window.scrollTo(0, 0); // Scrolls to the top of the page
+            }, 2000); // Adjust the timeout based on your animation duration
         }
-
-        // Function to set value of select element
-        function setValue(name, value) {
-            const select = document.querySelector(`#editForm select[name="${name}"]`);
-            const option = select.querySelector(`option[value="${value}"]`);
-            if (option) {
-                option.selected = true;
-            }
-        }
-
-        // Call functions when DOM content is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            const successMessage = "{{ session('success') }}";
-            const successAlert = document.getElementById('success-alert');
-
-            if (successMessage) {
-                showSuccessMessage(successMessage);
-            }
-
-            handleEditAppointmentButtonClick();
-        });
-
-        // Function to display success message
-        function showSuccessMessage(message) {
-            const successAlert = document.getElementById('success-alert');
-            successAlert.innerHTML = message;
-            successAlert.classList.add('show');
-            setTimeout(() => {
-                successAlert.classList.remove('show');
-                successAlert.classList.add('fade');
-            }, 2000);
-        }
-
-        // Function to handle delete appointment confirmation
-        function showDeleteConfirmation(appointmentId) {
-            const modal = new bootstrap.Modal(document.getElementById('deleteAppointmentModal'), {
-                keyboard: false
-            });
-
-            const deleteForm = document.getElementById('delete-form');
-            deleteForm.action = `{{ route('appointment.destroy', ['appointment' => ':id']) }}`.replace(':id',
-                appointmentId);
-
-            modal.show();
-        }
-    </script>
+    }, 2000);
+</script>
+    <script src="{{ asset('js/appointments.js') }}"></script>
 
     @include('appointment.modals.edit')
     @include('appointment.modals.create')
