@@ -87,7 +87,7 @@
                 </tbody>
             </table>
             <div class="d-flex justify-content-end">
-                {{ $appointments->appends(['page' => $currentPage])->links('pagination::bootstrap-4') }}
+                {{ $appointments->links('pagination::bootstrap-4') }}
             </div>
         </div>
     </div>
