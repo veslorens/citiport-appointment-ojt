@@ -35,7 +35,6 @@
                                     style="display: inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <!-- Add a confirmation dialog before deleting -->
                                     <button type="submit" class="btn btn-danger"
                                         onclick="return confirm('Are you sure you want to delete this appointment?')">Delete</button>
                                 </form>
@@ -49,5 +48,6 @@
         </div>
         {{ $appointments->links('pagination::bootstrap-4') }}
     </div>
+
 
 @endsection

@@ -13,8 +13,13 @@ class AppointmentController extends Controller
 {
     public function index()
     {
-        $appointments = Appointment::paginate(10);
-        return view('appointment.index', ['appointments' => $appointments]);
+        $appointment = Appointment::paginate(10);
+        return view('appointment.index', ['appointments' => $appointment]);
+    }
+
+    public function create()
+    {
+        return view('appointment.create');
     }
 
     public function schedule()
