@@ -9,10 +9,9 @@ Route::group(['middleware' => ['web']], function () {
     });
 
     Route::get('/appointment', [AppointmentController::class, 'index'])->name('appointment.index');
-    Route::get('/appointment/create', [AppointmentController::class, 'create'])->name('appointment.create');
-    Route::post('/appointment/store', [AppointmentController::class, 'store'])->name('appointment.store');
     Route::get('/appointment/schedule', [AppointmentController::class, 'schedule'])->name('appointment.schedule');
-    Route::get('/appointment/edit/{appointment}', [AppointmentController::class, 'edit'])->name('appointment.edit');
-    Route::put('/appointment/update/{appointment}', [AppointmentController::class, 'update'])->name('appointment.update');
-    Route::delete('/appointment/destroy/{appointment}', [AppointmentController::class, 'destroy'])->name('appointment.destroy');
+    Route::post('/appointment/store', [AppointmentController::class, 'store'])->name('appointment.store');
+    Route::get('/appointment/{id}/edit', [AppointmentController::class, 'edit'])->name('appointment.edit');
+    Route::post('/appointment/{id}/update', [AppointmentController::class, 'update'])->name('appointment.update');
+    Route::delete('/appointment/{id}', [AppointmentController::class, 'destroy'])->name('appointment.destroy');
 });
