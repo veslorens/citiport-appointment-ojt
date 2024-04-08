@@ -1,4 +1,66 @@
-var today = new Date();
+linkId = false;
+if (appointmentId) {
+    console.log("Appointment ID:", appointmentId);
+    linkId = true;
+} else {
+    console.log("No appointment ID available.");
+    linkId = false;
+}
+
+function emptyAllModal() {
+    var modal = document.getElementById("emptyAllModal");
+    modal.classList.add("show");
+    modal.style.display = "block";
+}
+
+function closeEmptyAllModal() {
+    var modal = document.getElementById("emptyAllModal");
+    modal.classList.remove("show");
+    modal.style.display = "none";
+}
+
+function emptyBottonModal() {
+    var modal = document.getElementById("emptyBottonModal");
+    modal.classList.add("show");
+    modal.style.display = "block";
+}
+
+function closeemptyBottonModal() {
+    var modal = document.getElementById("emptyBottonModal");
+    modal.classList.remove("show");
+    modal.style.display = "none";
+}
+
+function emptySerDiModal() {
+    var modal = document.getElementById("emptySerDiModal");
+    modal.classList.add("show");
+    modal.style.display = "block";
+}
+
+function closeEmptySerDiModal() {
+    var modal = document.getElementById("emptySerDiModal");
+    modal.classList.remove("show");
+    modal.style.display = "none";
+}
+
+function OptionModal() {
+    var modal = document.getElementById("OptionModal");
+    modal.classList.add("show");
+    modal.style.display = "block";
+}
+
+function closeOptionModal() {
+    var modal = document.getElementById("OptionModal");
+    modal.classList.remove("show");
+    modal.style.display = "none";
+}
+
+function successModal() {
+    var modal = document.getElementById("successModal");
+    modal.classList.add("show");
+    modal.style.display = "block";
+}
+
 var workingDays = 10;
 var slotsPerTime = 1;
 var opening = 8;
@@ -92,30 +154,34 @@ document.addEventListener("DOMContentLoaded", function () {
         "EarliestAvailableAppointment"
     );
     if (firstNonZeroTitle !== null && firstNonZeroStart !== null) {
-        EarliestAvailableAppointment.innerHTML = `Earliest available appointment: <br>${firstNonZeroStart}, Slots: ${firstNonZeroTitle}`;
+        EarliestAvailableAppointment.innerHTML = `Earliest available appointment: ${firstNonZeroStart}<br> Available lots: ${firstNonZeroTitle}`;
     }
 });
 
 var appointmentsArray = [];
 for (var i = 0; i < appointments.length; i++) {
     var appointmentDate = new Date(appointments[i].booked_at);
-    if (appointmentDate > -today) {
+    if (appointmentDate > -new Date()) {
         appointmentsArray.push(appointments[i]);
     }
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+    let previousClickedEvent = null;
     var calendarEl = document.getElementById("calendar");
-
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: "dayGridMonth",
         events: eventsArray,
 
         eventClick: function (info) {
+            if (previousClickedEvent) {
+                previousClickedEvent.style.backgroundColor = "";
+            }
+            info.el.style.backgroundColor = "#6CB4EE";
+            previousClickedEvent = info.el;
             timeSlots.forEach((slot) => {
                 slot.count = slotsPerTime;
             });
-
             formattedDate = `${info.event.start.getFullYear()}-${(
                 info.event.start.getMonth() + 1
             )
@@ -124,7 +190,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 .getDate()
                 .toString()
                 .padStart(2, "0")}`;
-
             var matchingAppointments = [];
             appointmentsArray.forEach(function (appointment) {
                 var bookedDate = appointment.booked_at.split(" ")[0];
@@ -155,7 +220,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             var formContainer = document.getElementById("radioForm");
             formContainer.innerHTML = "";
-
             timeSlots.forEach(function (slot) {
                 var input = document.createElement("input");
                 input.setAttribute("type", "radio");
@@ -168,7 +232,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         slot.start +
                         " - " +
                         slot.end +
+                        "\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0" +
                         " Fully Booked: " +
+                        "\u00A0\u00A0\u00A0" +
                         slot.count;
                     label.style.color = "red";
                     label.style.fontSize = "16px";
@@ -183,6 +249,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         slot.start +
                         " - " +
                         slot.end +
+                        "\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0" +
                         " Available Slots: " +
                         slot.count;
                     label.style.color = "green";
@@ -199,7 +266,6 @@ document.addEventListener("DOMContentLoaded", function () {
             var submitButton = document.createElement("input");
             submitButton.setAttribute("type", "button");
             submitButton.setAttribute("value", "Submit");
-
             submitButton.addEventListener("click", function () {
                 var csrfToken = document
                     .querySelector('meta[name="csrf-token"]')
@@ -214,50 +280,112 @@ document.addEventListener("DOMContentLoaded", function () {
                     'input[name="timeSlot"]:checked'
                 );
 
-                if (!selectedRadioButton) {
-                    alert("Please select a time slot.");
-                } else {
-                    var finalConfirmation = confirm(
-                        "Are you sure you want to proceed with the appointment?"
-                    );
-                    if (finalConfirmation) {
+                function resetBackgroundColor(elementId) {
+                    var element = document.getElementById(elementId);
+                    if (element) {
+                        element.style.backgroundColor = "";
                     }
                 }
 
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", "/appointment/store", true);
-                xhr.setRequestHeader("Content-Type", "application/json");
-                xhr.setRequestHeader("X-CSRF-Token", csrfToken);
-                xhr.onload = function () {
-                    if (xhr.status >= 200 && xhr.status < 300) {
-                        window.location.reload();
-                    } else {
-                        console.error("Failed to store appointment data");
-                    }
-                };
+                document
+                    .getElementById("service_name")
+                    .addEventListener("change", function () {
+                        resetBackgroundColor("service_name");
+                    });
+                document
+                    .getElementById("service_type")
+                    .addEventListener("change", function () {
+                        resetBackgroundColor("service_type");
+                    });
+                document
+                    .getElementById("office")
+                    .addEventListener("change", function () {
+                        resetBackgroundColor("office");
+                    });
+                document
+                    .querySelectorAll('input[name="timeSlot"]')
+                    .forEach(function (radio) {
+                        radio.addEventListener("change", function () {
+                            resetBackgroundColor(radio.id);
+                        });
+                    });
 
-                xhr.onerror = function () {
-                    console.error("Network error occurred");
-                };
+                if (
+                    (!service_name || !service_type || !office) &&
+                    !selectedRadioButton
+                ) {
+                    emptyAllModal();
+                } else if (
+                    !selectedRadioButton &&
+                    service_name &&
+                    service_type &&
+                    office
+                ) {
+                    emptyBottonModal();
+                } else if (
+                    selectedRadioButton &&
+                    (!service_name || !service_type || !office)
+                ) {
+                    emptySerDiModal();
+                } else {
+                    OptionModal();
 
-                xhr.send(
-                    JSON.stringify({
-                        booked_at: booked_at,
-                        service_name: service_name,
-                        service_type: service_type,
-                        office: office,
-                    })
-                );
+                    document
+                        .getElementById("confirmButton")
+                        .addEventListener("click", function () {
+                            if (confirm) {
+                                var xhr = new XMLHttpRequest();
+
+                                if (linkId === false) {
+                                    xhr.open(
+                                        "POST",
+                                        "/appointment/store",
+                                        true
+                                    );
+                                } else if (linkId === true) {
+                                    xhr.open(
+                                        "POST",
+                                        `/appointment/${appointmentId}/update`,
+                                        true
+                                    );
+                                }
+                                xhr.setRequestHeader(
+                                    "Content-Type",
+                                    "application/json"
+                                );
+                                xhr.setRequestHeader("X-CSRF-Token", csrfToken);
+                                xhr.onload = function () {
+                                    if (xhr.status >= 200 && xhr.status < 300) {
+                                        setTimeout(function () {
+                                            successModal();
+                                            setTimeout(function () {
+                                                window.location.reload();
+                                            }, 3000);
+                                        });
+                                    } else {
+                                        console.error(
+                                            "Failed to store appointment data"
+                                        );
+                                    }
+                                };
+                                xhr.onerror = function () {
+                                    console.error("Network error occurred");
+                                };
+
+                                xhr.send(
+                                    JSON.stringify({
+                                        booked_at: booked_at,
+                                        service_name: service_name,
+                                        service_type: service_type,
+                                        office: office,
+                                    })
+                                );
+                            }
+                        });
+                }
             });
-            submitButton.style.backgroundColor = "#4fffb0";
-            submitButton.style.color = "white";
-            submitButton.style.fontWeight = "white";
-            submitButton.style.padding = "10px 20px";
-            submitButton.style.border = "none";
-            submitButton.style.borderRadius = "5px";
-            submitButton.style.width = "90%";
-
-            submitButton.style.cursor = "pointer";
+            submitButton.style.cssText =
+                "background-color: #4fffb0; color: white; font-weight: bold; padding: 10px 20px; border: none; border-radius: 5px; width: 90%; cursor: pointer;";
             formContainer.appendChild(submitButton);
         },
     });
