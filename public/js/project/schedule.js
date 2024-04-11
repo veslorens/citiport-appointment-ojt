@@ -61,6 +61,47 @@ function successModal() {
     modal.style.display = "block";
 }
 
+// Delete Modal
+function openDeleteModal(appointmentId) {
+    var deleteForm = document.getElementById('deleteForm');
+    deleteForm.action = '/appointment/' + appointmentId;
+    var modal = document.getElementById('deleteConfirmationModal');
+    modal.classList.add('show');
+    modal.style.display = 'block';
+}
+
+function closeDeleteModal() {
+    var modal = document.getElementById('deleteConfirmationModal');
+    modal.classList.remove('show');
+    modal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    var cancelButton = document.getElementById('cancelButton');
+    if(cancelButton) {
+        cancelButton.addEventListener('click', function() {
+            closeDeleteModal();
+        });
+    }
+
+    // Find the success alert
+    var successAlert = document.getElementById('success-alert');
+
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Find the success alert
+    var successAlert = document.querySelector('.alert-success');
+    
+    if (successAlert) {
+        setTimeout(function() {
+            successAlert.style.display = 'none';
+        }, 2000); // 2000 milliseconds = 2 seconds
+    }
+});
+
+
+//////////////////////////////////////////////////////
 var workingDays = 10;
 var slotsPerTime = 1;
 var opening = 8;
@@ -391,3 +432,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     calendar.render();
 });
+
+
+///////////////////////////////////////////////////////

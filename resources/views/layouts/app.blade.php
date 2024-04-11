@@ -8,6 +8,7 @@
     <title>Appointments List</title>
     <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/project/appointment.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/fontawesome/fontawesome.min.css') }}">
 </head>
 
 <header>
