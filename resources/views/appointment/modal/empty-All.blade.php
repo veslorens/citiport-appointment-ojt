@@ -1,16 +1,16 @@
-<div class="modal" id="emptySerDiModal">
+<div class="modal" id="emptyAll">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Alert</h5>
-                <button type="button" class="btn-close" onclick="closeEmptySerDiModal()" aria-label="Close"></button>
+                <button type="button" class="btn-close" onclick="closeEmptyAll()" aria-label="Close"></button>
 
             </div>
             <div class="modal-body">
                 Please fill in all service details and select a time slot.
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" onclick="closeEmptySerDiModal()">Close</button>
+                <button type="button" class="btn btn-secondary" onclick="closeEmptyAll()">Close</button>
             </div>
         </div>
     </div>

@@ -75,12 +75,9 @@
                         <h2 class="card-title ">Time</h2>
                         <div id="EarliestAvailableAppointment"></div>
                         <div id="radioForm" class="text-center"></div>
-                        @include('appointment.modal.emptyAllModal')
-                        @include('appointment.modal.emptyBottonModal')
-                        @include('appointment.modal.emptySerDiModal')
-                        @include('appointment.modal.OptionModal')
-                        @include('appointment.modal.successModal')
-                        @push('scripts')
-                            <script src="{{ asset('js/project/scheduleEdit.js') }}"></script>
-                        @endpush
+                        @include('appointment.modal.confirmation-options')
+                        @include('appointment.modal.empty-All')
+                        @include('appointment.modal.empty-Service-Details')
+                        @include('appointment.modal.empty-TimeSlots')
+                        @include('appointment.modal.success')
                     @endsection

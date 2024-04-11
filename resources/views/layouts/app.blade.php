@@ -18,6 +18,8 @@
 
     <div class="content">
         @yield('content')
+
+
     </div>
 
     <footer>
@@ -29,8 +31,8 @@
         var appointmentId = @json($appointment->id ?? null);
     </script>
 
-    <script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/project/schedule.js') }}"></script>
+    <script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/fullcalendar/core/index.global.min.js') }}" defer></script>
     <script src="{{ asset('js/fullcalendar/daygrid/index.global.min.js') }}" defer></script>
 </body>

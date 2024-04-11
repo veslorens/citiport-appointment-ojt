@@ -7,56 +7,56 @@ if (appointmentId) {
     linkId = false;
 }
 
-function emptyAllModal() {
-    var modal = document.getElementById("emptyAllModal");
+function emptyAll() {
+    var modal = document.getElementById("emptyAll");
     modal.classList.add("show");
     modal.style.display = "block";
 }
 
-function closeEmptyAllModal() {
-    var modal = document.getElementById("emptyAllModal");
+function closeEmptyAll() {
+    var modal = document.getElementById("emptyAll");
     modal.classList.remove("show");
     modal.style.display = "none";
 }
 
-function emptyBottonModal() {
-    var modal = document.getElementById("emptyBottonModal");
+function emptyTimeSlots() {
+    var modal = document.getElementById("emptyTimeSlots");
     modal.classList.add("show");
     modal.style.display = "block";
 }
 
-function closeemptyBottonModal() {
-    var modal = document.getElementById("emptyBottonModal");
+function closeEmptyTimeSlots() {
+    var modal = document.getElementById("emptyTimeSlots");
     modal.classList.remove("show");
     modal.style.display = "none";
 }
 
-function emptySerDiModal() {
-    var modal = document.getElementById("emptySerDiModal");
+function emptyServiceDetails() {
+    var modal = document.getElementById("emptyServiceDetails");
     modal.classList.add("show");
     modal.style.display = "block";
 }
 
-function closeEmptySerDiModal() {
-    var modal = document.getElementById("emptySerDiModal");
+function closeEmptyServiceDetails() {
+    var modal = document.getElementById("emptyServiceDetails");
     modal.classList.remove("show");
     modal.style.display = "none";
 }
 
-function OptionModal() {
-    var modal = document.getElementById("OptionModal");
+function confirmationOptions() {
+    var modal = document.getElementById("confirmationOptions");
     modal.classList.add("show");
     modal.style.display = "block";
 }
 
-function closeOptionModal() {
-    var modal = document.getElementById("OptionModal");
+function closeConfirmationOptions() {
+    var modal = document.getElementById("confirmationOptions");
     modal.classList.remove("show");
     modal.style.display = "none";
 }
 
-function successModal() {
-    var modal = document.getElementById("successModal");
+function success() {
+    var modal = document.getElementById("success");
     modal.classList.add("show");
     modal.style.display = "block";
 }
@@ -314,24 +314,24 @@ document.addEventListener("DOMContentLoaded", function () {
                     (!service_name || !service_type || !office) &&
                     !selectedRadioButton
                 ) {
-                    emptyAllModal();
+                    emptyAll();
                 } else if (
                     !selectedRadioButton &&
                     service_name &&
                     service_type &&
                     office
                 ) {
-                    emptyBottonModal();
+                    emptyTimeSlots();
                 } else if (
                     selectedRadioButton &&
                     (!service_name || !service_type || !office)
                 ) {
-                    emptySerDiModal();
+                    emptyServiceDetails();
                 } else {
-                    OptionModal();
+                    confirmationOptions();
 
                     document
-                        .getElementById("confirmButton")
+                        .getElementById("confirmationOptions")
                         .addEventListener("click", function () {
                             if (confirm) {
                                 var xhr = new XMLHttpRequest();
@@ -357,7 +357,8 @@ document.addEventListener("DOMContentLoaded", function () {
                                 xhr.onload = function () {
                                     if (xhr.status >= 200 && xhr.status < 300) {
                                         setTimeout(function () {
-                                            successModal();
+                                            closeConfirmationOptions();
+                                            success();
                                             setTimeout(function () {
                                                 window.location.reload();
                                             }, 3000);
