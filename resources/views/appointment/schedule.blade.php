@@ -6,12 +6,10 @@
 
     <div class="container mt-4">
         <div class="row justify-content-center">
-
-            <div class="col-md-3">
+            <div class="col-md-3 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title">Service Details</h2>
-                        <p>Select type of service</p>
+                        <h2 class="card-title text-center">Service Details</h2>
                         <form>
                             <div class="mb-4">
                                 <label for="service_name" class="form-label">Service Name:</label>
@@ -44,22 +42,26 @@
                 </div>
             </div>
 
-            <div class="col-md-5">
+            <div class="col-md-5 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title">Date</h2>
+                        <h2 class="card-title text-center">Date</h2>
                         <p>To the extent possible, additional slots are made regularly.</p>
                         <div>
                             <div id="calendar"></div>
+                            <div class="row">
+                                <div class="col scheduleAvailable">Available</div>
+                                <div class="col scheduleFullyBooked">Fully Booked</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title">Time</h2>
+                        <h2 class="card-title text-center">Time</h2>
                         <div id="EarliestAvailableAppointment"></div>
                         <div id="radioForm" class="text-center"></div>
                         @include('appointment.modal.confirmation-options')

@@ -229,10 +229,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 if (slot.count === 0 || slot.count < 0) {
                     label.textContent =
+                        "\u00A0" +
                         slot.start +
                         " - " +
                         slot.end +
-                        "\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0" +
+                        "\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0" +
                         " Fully Booked: " +
                         "\u00A0\u00A0\u00A0" +
                         slot.count;
@@ -246,6 +247,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         booked_at = formattedDate + " " + selectedRadioValue;
                     });
                     label.textContent =
+                        "\u00A0" +
                         slot.start +
                         " - " +
                         slot.end +
@@ -262,6 +264,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 formContainer.appendChild(label);
                 formContainer.appendChild(document.createElement("br"));
             });
+
+            // Add media query for mobile devices
+            if (window.matchMedia("(max-width: 768px)").matches) {
+                var labels = document.querySelectorAll("label");
+                labels.forEach(function (label) {
+                    label.style.fontSize = "11px";
+                });
+            }
 
             var submitButton = document.createElement("input");
             submitButton.setAttribute("type", "button");

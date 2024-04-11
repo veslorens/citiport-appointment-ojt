@@ -4,7 +4,7 @@
 
 .container {
     background-color: #ffffff;
-    padding: 30px;
+    padding: 10px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     width: 95% !important;
@@ -20,6 +20,7 @@
     color: green;
     font-weight: bold;
     border-radius: 5px;
+    text-align: center;
 }
 
 .scheduleFullyBooked {
@@ -27,11 +28,12 @@
     color: red;
     font-weight: bold;
     border-radius: 5px;
+    text-align: center;
 }
 
-@media (max-width: 767px) {
-    .space {
-        height: auto;
+@media only screen and (max-width: 600px) {
+    .scheduleFullyBooked {
+        font-size: 14px;
     }
 }
 
@@ -87,4 +89,40 @@
 
 .fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
     min-height: 1em;
+}
+
+.fc .fc-toolbar-title {
+    font-size: 20px;
+}
+
+.fc .fc-button {
+    padding: 1px;
+}
+
+@media only screen and (max-width: 600px) {
+    .fc .fc-col-header-cell-cushion {
+        padding: 5px;
+        font-size: 10px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .card-body h2 {
+        font-size: 20px; /* Adjust font size for smaller screens */
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .card-body .form-label {
+        font-size: 14px;
+        font-weight: bold;
+    }
+}
+
+/* Media query for mobile devices */
+@media screen and (max-width: 768px) {
+    /* Change font size for mobile */
+    #EarliestAvailableAppointment {
+        font-size: 12px;
+        font-weight: bold;
+    }
 }
