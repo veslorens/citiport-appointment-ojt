@@ -155,7 +155,13 @@ document.addEventListener("DOMContentLoaded", function () {
         "EarliestAvailableAppointment"
     );
     if (firstNonZeroTitle !== null && firstNonZeroStart !== null) {
-        EarliestAvailableAppointment.innerHTML = `Earliest available appointment: ${firstNonZeroStart}<br> Available lots: ${firstNonZeroTitle}`;
+        var appointmentDate = new Date(firstNonZeroStart);
+        var formattedDate = appointmentDate.toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+        });
+        EarliestAvailableAppointment.innerHTML = `Earliest Appointment: ${formattedDate}<br> Available lots: ${firstNonZeroTitle}`;
     }
 });
 
@@ -229,7 +235,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             var formContainer = document.getElementById("radioForm");
             formContainer.innerHTML = "";
-
             timeSlots.forEach(function (slot) {
                 var input = document.createElement("input");
                 input.setAttribute("type", "radio");
@@ -281,83 +286,96 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             }
 
-            var submitButton = document.createElement("input");
-            submitButton.setAttribute("type", "button");
-            submitButton.setAttribute("value", "Submit");
-            submitButton.addEventListener("click", function () {
-                var csrfToken = document
-                    .querySelector('meta[name="csrf-token"]')
-                    .getAttribute("content");
-                var service_name =
-                    document.getElementById("service_name").value;
-                var service_type =
-                    document.getElementById("service_type").value;
-                var office = document.getElementById("office").value;
+            var existingSubmitButton = document
+                .getElementById("submitButton")
+                .querySelector("input[type='button']");
+            if (!existingSubmitButton) {
+                var submitButton = document.createElement("input");
+                submitButton.setAttribute("type", "button");
+                submitButton.setAttribute("value", "Submit");
+                submitButton.classList.add("custom-button");
+                submitButton.addEventListener("click", function () {
+                    var csrfToken = document
+                        .querySelector('meta[name="csrf-token"]')
+                        .getAttribute("content");
+                    var service_name =
+                        document.getElementById("service_name").value;
+                    var service_type =
+                        document.getElementById("service_type").value;
+                    var office = document.getElementById("office").value;
 
-                var selectedRadioButton = document.querySelector(
-                    'input[name="timeSlot"]:checked'
-                );
+                    var selectedRadioButton = document.querySelector(
+                        'input[name="timeSlot"]:checked'
+                    );
 
-                if (
-                    (!service_name || !service_type || !office) &&
-                    !selectedRadioButton
-                ) {
-                    emptyAll();
-                } else if (
-                    !selectedRadioButton &&
-                    service_name &&
-                    service_type &&
-                    office
-                ) {
-                    emptyTimeSlots();
-                } else if (
-                    selectedRadioButton &&
-                    (!service_name || !service_type || !office)
-                ) {
-                    emptyServiceDetails();
-                } else {
-                    confirmationOptions();
-                    document
-                        .getElementById("confirmButton")
-                        .addEventListener("click", function () {
-                            if (confirm) {
-                                var xhr = new XMLHttpRequest();
-                                if (linkId === false) {
-                                    xhr.open(
-                                        "POST",
-                                        "/appointment/store",
-                                        true
+                    function resetBackgroundColor(elementId) {
+                        var element = document.getElementById(elementId);
+                        if (element) {
+                            element.style.backgroundColor = "";
+                        }
+                    }
+
+                    if (
+                        (!service_name || !service_type || !office) &&
+                        !selectedRadioButton
+                    ) {
+                        emptyAll();
+                    } else if (
+                        !selectedRadioButton &&
+                        service_name &&
+                        service_type &&
+                        office
+                    ) {
+                        emptyTimeSlots();
+                    } else if (
+                        selectedRadioButton &&
+                        (!service_name || !service_type || !office)
+                    ) {
+                        emptyServiceDetails();
+                    } else {
+                        confirmationOptions();
+                        document
+                            .getElementById("confirmButton")
+                            .addEventListener("click", function () {
+                                if (confirm) {
+                                    var xhr = new XMLHttpRequest();
+                                    if (linkId === false) {
+                                        xhr.open(
+                                            "POST",
+                                            "/appointment/store",
+                                            true
+                                        );
+                                    } else if (linkId === true) {
+                                        xhr.open(
+                                            "POST",
+                                            `/appointment/${appointmentId}/update`,
+                                            true
+                                        );
+                                    }
+                                    xhr.setRequestHeader(
+                                        "Content-Type",
+                                        "application/json"
                                     );
-                                } else if (linkId === true) {
-                                    xhr.open(
-                                        "POST",
-                                        `/appointment/${appointmentId}/update`,
-                                        true
+                                    xhr.setRequestHeader(
+                                        "X-CSRF-Token",
+                                        csrfToken
+                                    );
+
+                                    xhr.send(
+                                        JSON.stringify({
+                                            booked_at: booked_at,
+                                            service_name: service_name,
+                                            service_type: service_type,
+                                            office: office,
+                                        })
                                     );
                                 }
-
-                                xhr.setRequestHeader(
-                                    "Content-Type",
-                                    "application/json"
-                                );
-                                xhr.setRequestHeader("X-CSRF-Token", csrfToken);
-
-                                xhr.send(
-                                    JSON.stringify({
-                                        booked_at: booked_at,
-                                        service_name: service_name,
-                                        service_type: service_type,
-                                        office: office,
-                                    })
-                                );
-                                window.location.reload();
-                            }
-                        });
-                }
-            });
-            submitButton.style.cssText =
-                "background-color: #4fffb0; color: white; font-weight: bold; padding: 10px 20px; border: none; border-radius: 5px; width: 90%; cursor: pointer;";
-            formContainer.appendChild(submitButton);
+                            });
+                    }
+                });
+                var submitButtonDiv = document.getElementById("submitButton");
+                submitButtonDiv.appendChild(submitButton);
+            }
         },
     });
     calendar.render();
