@@ -4,7 +4,7 @@
 
 .container {
     background-color: #ffffff;
-    padding: 30px;
+    padding: 0px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     width: 95% !important;
@@ -88,3 +88,64 @@
 .fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
     min-height: 1em;
 }
+
+
+/*  */
+
+#loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.spinner {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Styles for desktop */
+@media screen and (min-width: 768px) {
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    .pagination {
+        float: right;
+    }
+
+    .btn-create-appointment {
+        float: right;
+        
+    }
+}
+
+/* Styles for mobile */
+@media screen and (max-width: 768px) {
+    .table-responsive {
+        overflow-x: auto;
+        margin: 0 10px;
+    }
+    .btn {
+        margin-bottom: 5px;
+    }
+    .fs-3 {
+        font-size: 1.5rem;
+    }
+}
+

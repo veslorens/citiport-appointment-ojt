@@ -100,6 +100,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+window.addEventListener('load', function () {
+    var loadingOverlay = document.getElementById('loading-overlay');
+    if (loadingOverlay) {
+        loadingOverlay.style.display = 'none';
+    }
+});
 
 //////////////////////////////////////////////////////
 var workingDays = 10;
