@@ -229,6 +229,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             var formContainer = document.getElementById("radioForm");
             formContainer.innerHTML = "";
+
             timeSlots.forEach(function (slot) {
                 var input = document.createElement("input");
                 input.setAttribute("type", "radio");
@@ -274,7 +275,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             var mediaQuery = window.matchMedia("(max-width: 768px)");
             if (mediaQuery.matches) {
-                // Apply font size 12px for smaller screens
                 var labels = document.querySelectorAll("label");
                 labels.forEach(function (label) {
                     label.style.fontSize = "12px";
@@ -297,36 +297,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 var selectedRadioButton = document.querySelector(
                     'input[name="timeSlot"]:checked'
                 );
-
-                function resetBackgroundColor(elementId) {
-                    var element = document.getElementById(elementId);
-                    if (element) {
-                        element.style.backgroundColor = "";
-                    }
-                }
-
-                document
-                    .getElementById("service_name")
-                    .addEventListener("change", function () {
-                        resetBackgroundColor("service_name");
-                    });
-                document
-                    .getElementById("service_type")
-                    .addEventListener("change", function () {
-                        resetBackgroundColor("service_type");
-                    });
-                document
-                    .getElementById("office")
-                    .addEventListener("change", function () {
-                        resetBackgroundColor("office");
-                    });
-                document
-                    .querySelectorAll('input[name="timeSlot"]')
-                    .forEach(function (radio) {
-                        radio.addEventListener("change", function () {
-                            resetBackgroundColor(radio.id);
-                        });
-                    });
 
                 if (
                     (!service_name || !service_type || !office) &&
@@ -365,6 +335,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                         true
                                     );
                                 }
+
                                 xhr.setRequestHeader(
                                     "Content-Type",
                                     "application/json"
@@ -379,6 +350,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                         office: office,
                                     })
                                 );
+                                window.location.reload();
                             }
                         });
                 }
