@@ -77,11 +77,5 @@
                         <div id="submitButton"></div>
                     </div>
                 </div>
-
-                @include('appointment.modal.confirmation-options')
-                @include('appointment.modal.empty-All')
-                @include('appointment.modal.empty-Service-Details')
-                @include('appointment.modal.empty-TimeSlots')
-                @include('appointment.modal.success')
-
-            @endsection
+            </div>
+        @endsection

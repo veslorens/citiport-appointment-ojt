@@ -2,17 +2,19 @@
 @section('title', 'Schedule')
 @section('content')
     <div class="container mt-4 ">
+
         <div class="row justify-content-center">
             <div class="text-center">
                 <h3>Edit Form</h3>
             </div>
             <div class="col-md-3 mb-4">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-header">
                         <h2 class="card-title">Service Details</h2>
-                        <p>Select type of service</p>
+                    </div>
+                    <div class="card-body">
                         <form>
-                            <div class="mb-4">
+                            <div class="mb-1">
                                 <label for="service_name" class="form-label">Service Name:</label>
                                 <select name="service_name" id="service_name" class="form-select">
                                     <option value="">Select Service Name</option>
@@ -30,7 +32,7 @@
                                         of Business Permit</option>
                                 </select>
                             </div>
-                            <div class="mb-4">
+                            <div class="mb-1">
                                 <label for="service_type" class="form-label">Service Type:</label>
                                 <select name="service_type" id="service_type" class="form-select">
                                     <option value="">Select Service Type</option>
@@ -42,7 +44,7 @@
                                         Payment</option>
                                 </select>
                             </div>
-                            <div class="mb-4">
+                            <div class="mb-1">
                                 <label for="office" class="form-label">Office:</label>
                                 <select name="office" id="office" class="form-select">
                                     <option value="">Select Office</option>
@@ -54,30 +56,43 @@
                             </div>
                         </form>
                     </div>
+                    <div class="card-footer">
+
+                    </div>
                 </div>
             </div>
 
             <div class="col-md-5 mb-4">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-header">
                         <h2 class="card-title">Date</h2>
-                        <p>To the extent possible, additional slots are made regularly.</p>
-                        <div>
-                            <div id="calendar"></div>
+                    </div>
+                    <div class="card-body">
+                        <div id="calendar"></div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col scheduleAvailable">Available</div>
+                            <div class="col scheduleFullyBooked">Fully Booked</div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h2 class="card-title ">Time</h2>
-                        <div id="EarliestAvailableAppointment"></div>
-                        <div id="radioForm" class="text-center"></div>
-                        @include('appointment.modal.confirmation-options')
-                        @include('appointment.modal.empty-All')
-                        @include('appointment.modal.empty-Service-Details')
-                        @include('appointment.modal.empty-TimeSlots')
-                        @include('appointment.modal.success')
-                    @endsection
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title text-center">Time</h2>
+                    <div id="EarliestAvailableAppointment"></div>
+                </div>
+                <div class="card-body">
+                    <div id="radioForm" class="text-center"></div>
+                </div>
+                <div class="card-footer text-center">
+                    <div id="submitButton"></div>
+                </div>
+            </div>
+        </div>
+
+    @endsection
