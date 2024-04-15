@@ -10,7 +10,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" onclick="closeConfirmationOptions()">Cancel</button>
-                <button type="button" class="btn btn-primary" id="close" onclick="close()">Confirm</button>
+                <button type="button" class="btn btn-primary" id="confirmButton"
+                    onclick="closeConfirmationOptions()">Confirm</button>
             </div>
         </div>
     </div>

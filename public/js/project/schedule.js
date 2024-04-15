@@ -53,6 +53,7 @@ function closeConfirmationOptions() {
     var modal = document.getElementById("confirmationOptions");
     modal.classList.remove("show");
     modal.style.display = "none";
+    window.location.reload();
 }
 
 function success() {
@@ -61,7 +62,7 @@ function success() {
     modal.style.display = "block";
 }
 
-var workingDays = 10;
+var workingDays = 30;
 var slotsPerTime = 1;
 var opening = 8;
 var closing = 17;
@@ -175,13 +176,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
         eventClick: function (info) {
             if (previousClickedEvent) {
-                previousClickedEvent.style.backgroundColor = "";
+                // Check if the previous background color is not red
+                if (previousClickedEvent.style.backgroundColor !== "red") {
+                    previousClickedEvent.style.backgroundColor = "";
+                }
             }
-            info.el.style.backgroundColor = "#6CB4EE";
+            // Check if the current background color is not red
+            if (info.el.style.backgroundColor !== "red") {
+                info.el.style.backgroundColor = "#6CB4EE";
+            }
             previousClickedEvent = info.el;
+
             timeSlots.forEach((slot) => {
                 slot.count = slotsPerTime;
             });
+
             formattedDate = `${info.event.start.getFullYear()}-${(
                 info.event.start.getMonth() + 1
             )
@@ -229,11 +238,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 if (slot.count === 0 || slot.count < 0) {
                     label.textContent =
-                        "\u00A0" +
                         slot.start +
                         " - " +
                         slot.end +
-                        "\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0" +
+                        "\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0" +
                         " Fully Booked: " +
                         "\u00A0\u00A0\u00A0" +
                         slot.count;
@@ -247,7 +255,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         booked_at = formattedDate + " " + selectedRadioValue;
                     });
                     label.textContent =
-                        "\u00A0" +
                         slot.start +
                         " - " +
                         slot.end +
@@ -265,11 +272,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 formContainer.appendChild(document.createElement("br"));
             });
 
-            // Add media query for mobile devices
-            if (window.matchMedia("(max-width: 768px)").matches) {
+            var mediaQuery = window.matchMedia("(max-width: 768px)");
+            if (mediaQuery.matches) {
+                // Apply font size 12px for smaller screens
                 var labels = document.querySelectorAll("label");
                 labels.forEach(function (label) {
-                    label.style.fontSize = "11px";
+                    label.style.fontSize = "12px";
                 });
             }
 
@@ -339,13 +347,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     emptyServiceDetails();
                 } else {
                     confirmationOptions();
-
                     document
-                        .getElementById("confirmationOptions")
+                        .getElementById("confirmButton")
                         .addEventListener("click", function () {
                             if (confirm) {
                                 var xhr = new XMLHttpRequest();
-
                                 if (linkId === false) {
                                     xhr.open(
                                         "POST",
@@ -364,24 +370,6 @@ document.addEventListener("DOMContentLoaded", function () {
                                     "application/json"
                                 );
                                 xhr.setRequestHeader("X-CSRF-Token", csrfToken);
-                                xhr.onload = function () {
-                                    if (xhr.status >= 200 && xhr.status < 300) {
-                                        setTimeout(function () {
-                                            closeConfirmationOptions();
-                                            success();
-                                            setTimeout(function () {
-                                                window.location.reload();
-                                            }, 3000);
-                                        });
-                                    } else {
-                                        console.error(
-                                            "Failed to store appointment data"
-                                        );
-                                    }
-                                };
-                                xhr.onerror = function () {
-                                    console.error("Network error occurred");
-                                };
 
                                 xhr.send(
                                     JSON.stringify({

@@ -6,7 +6,7 @@
             <div class="text-center">
                 <h3>Edit Form</h3>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 mb-4">
                 <div class="card">
                     <div class="card-body">
                         <h2 class="card-title">Service Details</h2>
@@ -57,7 +57,7 @@
                 </div>
             </div>
 
-            <div class="col-md-5">
+            <div class="col-md-5 mb-4">
                 <div class="card">
                     <div class="card-body">
                         <h2 class="card-title">Date</h2>
@@ -69,7 +69,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4 mb-4">
                 <div class="card">
                     <div class="card-body">
                         <h2 class="card-title ">Time</h2>

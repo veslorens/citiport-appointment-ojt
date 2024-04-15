@@ -54,7 +54,7 @@
 .fc-daygrid-day-number {
     font-style: normal;
     text-decoration: none; /* Remove underlines */
-    color: #696969;
+    color: #000000;
 }
 .fc .fc-toolbar.fc-header-toolbar {
     margin-bottom: 1px;
