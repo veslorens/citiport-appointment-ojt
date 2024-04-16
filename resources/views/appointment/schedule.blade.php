@@ -57,6 +57,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="row">
+                            <div class="col selectedDate">Selected Date</div>
                             <div class="col scheduleAvailable">Available</div>
                             <div class="col scheduleFullyBooked">Fully Booked</div>
                         </div>
@@ -78,4 +79,8 @@
                     </div>
                 </div>
             </div>
-        @endsection
+
+        </div>
+    </div>
+
+@endsection

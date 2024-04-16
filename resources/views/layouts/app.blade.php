@@ -23,9 +23,6 @@
         @include('appointment.modal.empty-Service-Details')
         @include('appointment.modal.empty-TimeSlots')
         @include('appointment.modal.success')
-
-
-
     </div>
 
     <footer>

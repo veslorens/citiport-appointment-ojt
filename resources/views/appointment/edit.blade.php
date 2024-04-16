@@ -1,18 +1,18 @@
 @extends('layouts.app')
 @section('title', 'Schedule')
 @section('content')
-    <div class="container mt-4 ">
-
+    <div class="container mt-2">
         <div class="row justify-content-center">
-            <div class="text-center">
-                <h3>Edit Form</h3>
-            </div>
-            <div class="col-md-3 mb-4">
+            <div class="col-md-3">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-title">Service Details</h2>
+                        <h5 class="card-title text-center">Service Details</h5>
                     </div>
                     <div class="card-body">
+                        <p>ID: {{ $appointment->id }}</p>
+                        <p>Booked At: {{ $appointment->booked_at }}</p>
+                        <p>Updated At: {{ $appointment->updated_at }}</p>
+                        <p>Created At: {{ $appointment->created_at }}</p>
                         <form>
                             <div class="mb-1">
                                 <label for="service_name" class="form-label">Service Name:</label>
@@ -56,43 +56,41 @@
                             </div>
                         </form>
                     </div>
-                    <div class="card-footer">
-
-                    </div>
                 </div>
             </div>
 
-            <div class="col-md-5 mb-4">
+            <div class="col-md-5 mt-2 mb-4">
                 <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Date</h2>
+                    <div class="card-header text-center">
+                        <h5 class="card-title">Date</h5>
                     </div>
                     <div class="card-body">
                         <div id="calendar"></div>
                     </div>
                     <div class="card-footer">
                         <div class="row">
+                            <div class="col selectedDate">Selected Date</div>
                             <div class="col scheduleAvailable">Available</div>
                             <div class="col scheduleFullyBooked">Fully Booked</div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title text-center">Time</h2>
-                    <div id="EarliestAvailableAppointment"></div>
-                </div>
-                <div class="card-body">
-                    <div id="radioForm" class="text-center"></div>
-                </div>
-                <div class="card-footer text-center">
-                    <div id="submitButton"></div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title text-center">Time</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="EarliestAvailableAppointment"></div>
+                        <div id="radioForm" class="text-center"></div>
+                    </div>
+                    <div class="card-footer text-center">
+                        <div id="submitButton"></div>
+                    </div>
                 </div>
             </div>
         </div>
-
-    @endsection
+    </div>
+@endsection

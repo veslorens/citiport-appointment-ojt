@@ -15,6 +15,14 @@
     height: auto;
 }
 
+.selectedDate {
+    background-color: #6cb4ee;
+    color: #3a78b3;
+    font-weight: bold;
+    border-radius: 5px;
+    text-align: center;
+}
+
 .scheduleAvailable {
     background-color: #4fffb0;
     color: green;

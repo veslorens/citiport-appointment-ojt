@@ -62,7 +62,7 @@ function success() {
     modal.style.display = "block";
 }
 
-var workingDays = 30;
+var workingDays = 20;
 var slotsPerTime = 1;
 var opening = 8;
 var closing = 17;
@@ -92,7 +92,6 @@ var identifiedByCounts = [];
 appointments.forEach(function (appointment) {
     var appointmentDate = new Date(appointment.booked_at);
     var formattedDate = appointmentDate.toISOString().slice(0, 10);
-
     var options = {
         year: "numeric",
         month: "2-digit",
@@ -115,10 +114,6 @@ appointments.forEach(function (appointment) {
     }
 
     identifiedByCounts[formattedDateTime] = appointmentDate;
-});
-
-Object.entries(dateCounts).forEach(([date, count]) => {
-    dateCounts.push({ date, count });
 });
 
 var eventsArray = [];
@@ -181,16 +176,20 @@ document.addEventListener("DOMContentLoaded", function () {
         events: eventsArray,
 
         eventClick: function (info) {
+            if (info.event.title === "0" || parseInt(info.event.title) < 0) {
+                return false;
+            }
+
             if (previousClickedEvent) {
-                // Check if the previous background color is not red
                 if (previousClickedEvent.style.backgroundColor !== "red") {
                     previousClickedEvent.style.backgroundColor = "";
                 }
             }
-            // Check if the current background color is not red
+
             if (info.el.style.backgroundColor !== "red") {
                 info.el.style.backgroundColor = "#6CB4EE";
             }
+
             previousClickedEvent = info.el;
 
             timeSlots.forEach((slot) => {
@@ -205,6 +204,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 .getDate()
                 .toString()
                 .padStart(2, "0")}`;
+
             var matchingAppointments = [];
             appointmentsArray.forEach(function (appointment) {
                 var bookedDate = appointment.booked_at.split(" ")[0];
@@ -294,6 +294,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 submitButton.setAttribute("type", "button");
                 submitButton.setAttribute("value", "Submit");
                 submitButton.classList.add("custom-button");
+
                 submitButton.addEventListener("click", function () {
                     var csrfToken = document
                         .querySelector('meta[name="csrf-token"]')
@@ -307,13 +308,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     var selectedRadioButton = document.querySelector(
                         'input[name="timeSlot"]:checked'
                     );
-
-                    function resetBackgroundColor(elementId) {
-                        var element = document.getElementById(elementId);
-                        if (element) {
-                            element.style.backgroundColor = "";
-                        }
-                    }
 
                     if (
                         (!service_name || !service_type || !office) &&
@@ -334,11 +328,13 @@ document.addEventListener("DOMContentLoaded", function () {
                         emptyServiceDetails();
                     } else {
                         confirmationOptions();
+
                         document
                             .getElementById("confirmButton")
                             .addEventListener("click", function () {
                                 if (confirm) {
                                     var xhr = new XMLHttpRequest();
+
                                     if (linkId === false) {
                                         xhr.open(
                                             "POST",
@@ -352,10 +348,12 @@ document.addEventListener("DOMContentLoaded", function () {
                                             true
                                         );
                                     }
+
                                     xhr.setRequestHeader(
                                         "Content-Type",
                                         "application/json"
                                     );
+
                                     xhr.setRequestHeader(
                                         "X-CSRF-Token",
                                         csrfToken
@@ -369,12 +367,16 @@ document.addEventListener("DOMContentLoaded", function () {
                                             office: office,
                                         })
                                     );
+
+                                    window.location.reload();
                                 }
                             });
                     }
                 });
                 var submitButtonDiv = document.getElementById("submitButton");
                 submitButtonDiv.appendChild(submitButton);
+            } else {
+                console.log("change");
             }
         },
     });
