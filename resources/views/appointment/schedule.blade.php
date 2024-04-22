@@ -9,7 +9,7 @@
             <div class="col-md-3 mb-4">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-title text-center">Service Details</h2>
+                        <h5 class="card-title text-center">Service Details</h5>
                     </div>
                     <div class="card-body">
                         <form>
@@ -48,9 +48,8 @@
 
             <div class="col-md-5 mb-4">
                 <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title text-center">Date</h2>
-                        <p>To the extent possible, additional slots are made regularly.</p>
+                    <div class="card-header text-center">
+                        <h5 class="card-title">Date</h5>
                     </div>
                     <div class="card-body">
                         <div id="calendar"></div>
@@ -68,10 +67,11 @@
             <div class="col-md-4 mb-4">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-title text-center">Time</h2>
-                        <div id="EarliestAvailableAppointment"></div>
+                        <h5 class="card-title text-center">Time</h5>
                     </div>
                     <div class="card-body">
+                        <div id="EarliestAvailableAppointment"></div>
+                        <br>
                         <div id="radioForm" class="text-center"></div>
                     </div>
                     <div class="card-footer text-center">

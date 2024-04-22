@@ -282,7 +282,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (mediaQuery.matches) {
                 var labels = document.querySelectorAll("label");
                 labels.forEach(function (label) {
-                    label.style.fontSize = "12px";
+                    label.style.fontSize = "13px";
                 });
             }
 

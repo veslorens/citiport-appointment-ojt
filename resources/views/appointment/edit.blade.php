@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('title', 'Schedule')
 @section('content')
-    <div class="container mt-2">
+    <div class="container mt-4">
         <div class="row justify-content-center">
-            <div class="col-md-3">
+            <div class="col-md-3 mb-4">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title text-center">Service Details</h5>
@@ -11,7 +11,6 @@
                     <div class="card-body">
                         <p>ID: {{ $appointment->id }}</p>
                         <p>Booked At: {{ $appointment->booked_at }}</p>
-                        <p>Updated At: {{ $appointment->updated_at }}</p>
                         <p>Created At: {{ $appointment->created_at }}</p>
                         <form>
                             <div class="mb-1">
@@ -59,7 +58,7 @@
                 </div>
             </div>
 
-            <div class="col-md-5 mt-2 mb-4">
+            <div class="col-md-5 mb-4">
                 <div class="card">
                     <div class="card-header text-center">
                         <h5 class="card-title">Date</h5>
@@ -77,13 +76,14 @@
                 </div>
             </div>
 
-            <div class="col-md-4 mb-4">
+            <div class="col-md-4 mb-2">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title text-center">Time</h5>
                     </div>
                     <div class="card-body">
                         <div id="EarliestAvailableAppointment"></div>
+                        <br>
                         <div id="radioForm" class="text-center"></div>
                     </div>
                     <div class="card-footer text-center">
