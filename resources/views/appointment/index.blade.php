@@ -48,7 +48,7 @@
                                 <td>{{ $appointment->office }}</td>
                                 <td>{{ $appointment->status }}</td>
                                 <td>{{ date('Y-m-d', strtotime($appointment->booked_at)) }}</td>
-                                <td>{{ date('H:i', strtotime($appointment->created_at)) }}</td>
+                                <td>{{ date('h:i A', strtotime($appointment->created_at)) }}</td>
                                 <td>
                                     <a href="{{ route('appointment.edit', ['id' => $appointment]) }}"
                                         class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>

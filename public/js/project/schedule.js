@@ -84,19 +84,17 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Find the success alert
     var successAlert = document.getElementById('success-alert');
 
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Find the success alert
     var successAlert = document.querySelector('.alert-success');
     
     if (successAlert) {
         setTimeout(function() {
             successAlert.style.display = 'none';
-        }, 2000); // 2000 milliseconds = 2 seconds
+        }, 2000);
     }
 });
 
