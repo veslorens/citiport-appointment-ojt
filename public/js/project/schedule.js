@@ -62,10 +62,10 @@ function success() {
     modal.style.display = "block";
 }
 
-var workingDays = 20;
+var workingDays = 10;
 var slotsPerTime = 1;
 var opening = 8;
-var closing = 17;
+var closing = 9;
 
 var timeSlots = [];
 for (var i = opening; i < closing; i++) {
