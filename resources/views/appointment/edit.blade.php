@@ -10,8 +10,8 @@
                     </div>
                     <div class="card-body">
                         <p>ID: {{ $appointment->id }}</p>
-                        <p>Booked At: {{ $appointment->booked_at }}</p>
-                        <p>Created At: {{ $appointment->created_at }}</p>
+                        <p>Booked At: {{ \Carbon\Carbon::parse($appointment->booked_at)->format('d M Y') }} 08:00 AM</p>
+
                         <form>
                             <div class="mb-1">
                                 <label for="service_name" class="form-label">Service Name:</label>

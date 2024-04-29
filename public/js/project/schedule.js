@@ -53,19 +53,29 @@ function closeConfirmationOptions() {
     var modal = document.getElementById("confirmationOptions");
     modal.classList.remove("show");
     modal.style.display = "none";
-    window.location.reload();
 }
 
 function success() {
     var modal = document.getElementById("success");
     modal.classList.add("show");
     modal.style.display = "block";
+
+    setTimeout(function () {
+        window.location.reload();
+    }, 3000);
+}
+
+function closeSuccess() {
+    var modal = document.getElementById("success");
+    modal.classList.remove("show");
+    modal.style.display = "none";
+    window.location.reload();
 }
 
 var workingDays = 10;
-var slotsPerTime = 1;
+var slotsPerTime = 10;
 var opening = 8;
-var closing = 9;
+var closing = 11;
 
 var timeSlots = [];
 for (var i = opening; i < closing; i++) {
@@ -189,7 +199,6 @@ document.addEventListener("DOMContentLoaded", function () {
             if (info.el.style.backgroundColor !== "red") {
                 info.el.style.backgroundColor = "#6CB4EE";
             }
-
             previousClickedEvent = info.el;
 
             timeSlots.forEach((slot) => {
@@ -368,15 +377,20 @@ document.addEventListener("DOMContentLoaded", function () {
                                         })
                                     );
 
-                                    window.location.reload();
+                                    closeConfirmationOptions();
+                                    success();
                                 }
+                            });
+
+                        document
+                            .getElementById("cancelButton")
+                            .addEventListener("click", function () {
+                                location.reload();
                             });
                     }
                 });
                 var submitButtonDiv = document.getElementById("submitButton");
                 submitButtonDiv.appendChild(submitButton);
-            } else {
-                console.log("change");
             }
         },
     });

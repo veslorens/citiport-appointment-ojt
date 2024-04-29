@@ -11,8 +11,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" id="cancelButton"
                     onclick="closeConfirmationOptions()">Cancel</button>
-                <button type="button" class="btn btn-primary" id="confirmButton"
-                    onclick="closeConfirmationOptions()">Confirm</button>
+                <button type="button" class="btn btn-primary" id="confirmButton">Confirm</button>
             </div>
         </div>
     </div>
