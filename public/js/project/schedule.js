@@ -1,3 +1,8 @@
+var workingDays = 10;
+var slotsPerTime = 10;
+var opening = 8;
+var closing = 11;
+
 linkId = false;
 if (appointmentId) {
     console.log("Appointment ID:", appointmentId);
@@ -71,11 +76,6 @@ function closeSuccess() {
     modal.style.display = "none";
     window.location.reload();
 }
-
-var workingDays = 10;
-var slotsPerTime = 10;
-var opening = 8;
-var closing = 11;
 
 var timeSlots = [];
 for (var i = opening; i < closing; i++) {
@@ -210,9 +210,9 @@ document.addEventListener("DOMContentLoaded", function () {
             )
                 .toString()
                 .padStart(2, "0")}-${info.event.start
-                .getDate()
-                .toString()
-                .padStart(2, "0")}`;
+                    .getDate()
+                    .toString()
+                    .padStart(2, "0")}`;
 
             var matchingAppointments = [];
             appointmentsArray.forEach(function (appointment) {
