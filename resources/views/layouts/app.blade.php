@@ -26,7 +26,7 @@
     </footer>
 
     <script>
-        var appointments = @json($appointments);
+        var appointments = @json($appointments ?? []);
         var appointmentId = @json($appointment->id ?? null);
     </script>
 

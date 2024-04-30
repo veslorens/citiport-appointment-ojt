@@ -68,5 +68,20 @@
         </div>
     </div>
 
+    <div class="col-md-3 text-left mt-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Logged in as: {{ Auth::user()->name }}</h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 text-left mt-4">
+        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn btn-link"><i class="fa-solid fa-right-from-bracket">Logout</i></button>
+        </form>
+    </div>
+
     @include('appointment.modal.delete')
 @endsection
