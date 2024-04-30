@@ -5,9 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\SuperAdminMiddleware;
 use App\Http\Controllers\AdminController;
 
-Route::group(['middleware' => ['web']], function () {
+Route::group([], function () {
     Route::get('/', function () {
-        return view('login');
+        return view('auth.login');
     });
 
     // Appointment routes
@@ -18,11 +18,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/appointment/{id}/update', [AppointmentController::class, 'update'])->name('appointment.update');
     Route::delete('/appointment/{id}', [AppointmentController::class, 'destroy'])->name('appointment.destroy');
 
-    
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard')->middleware('auth');
-
-    
-
 });
 
 Auth::routes();

@@ -48,13 +48,13 @@ class LoginController extends Controller
         return redirect()->intended($this->redirectPath());
     }
 
-    // Override the default username method to accept email or name
+    
     public function username()
     {
         return 'email_or_name';
     }
 
-    // Override the credentials method to check email or name
+   
     protected function credentials(Request $request)
     {
         $login = $request->input($this->username());
