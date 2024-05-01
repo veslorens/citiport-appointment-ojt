@@ -1,7 +1,3 @@
-var workingDays = 10;
-var slotsPerTime = 10;
-var opening = 8;
-var closing = 11;
 
 linkId = false;
 if (appointmentId) {
@@ -11,6 +7,11 @@ if (appointmentId) {
     console.log("No appointment ID available.");
     linkId = false;
 }
+
+var workingDays = 10;
+var slotsPerTime = 10;
+var opening = 8;
+var closing = 11;
 
 function emptyAll() {
     var modal = document.getElementById("emptyAll");
@@ -64,10 +65,6 @@ function success() {
     var modal = document.getElementById("success");
     modal.classList.add("show");
     modal.style.display = "block";
-
-    setTimeout(function () {
-        window.location.reload();
-    }, 3000);
 }
 
 function closeSuccess() {
@@ -338,50 +335,41 @@ document.addEventListener("DOMContentLoaded", function () {
                     } else {
                         confirmationOptions();
 
-                        document
-                            .getElementById("confirmButton")
-                            .addEventListener("click", function () {
-                                if (confirm) {
-                                    var xhr = new XMLHttpRequest();
+                        document.getElementById("confirmButton").addEventListener("click", function () {
+                            if (confirm) {
+                                var xhr = new XMLHttpRequest();
 
-                                    if (linkId === false) {
-                                        xhr.open(
-                                            "POST",
-                                            "/appointment/store",
-                                            true
-                                        );
-                                    } else if (linkId === true) {
-                                        xhr.open(
-                                            "POST",
-                                            `/appointment/${appointmentId}/update`,
-                                            true
-                                        );
-                                    }
-
-                                    xhr.setRequestHeader(
-                                        "Content-Type",
-                                        "application/json"
-                                    );
-
-                                    xhr.setRequestHeader(
-                                        "X-CSRF-Token",
-                                        csrfToken
-                                    );
-
-                                    xhr.send(
-                                        JSON.stringify({
-                                            booked_at: booked_at,
-                                            service_name: service_name,
-                                            service_type: service_type,
-                                            office: office,
-                                        })
-                                    );
-
-                                    closeConfirmationOptions();
-                                    success();
+                                if (linkId === false) {
+                                    xhr.open("POST", "/appointment/store", true);
+                                } else if (linkId === true) {
+                                    xhr.open("POST", `/appointment/${appointmentId}/update`, true);
                                 }
-                            });
 
+                                xhr.setRequestHeader("Content-Type", "application/json");
+                                xhr.setRequestHeader("X-CSRF-Token", csrfToken);
+
+                                xhr.onreadystatechange = function () {
+                                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                                        if (xhr.status === 200) {
+                                            var response = JSON.parse(xhr.responseText);
+                                            console.log("ID saved in the database:", response.id);
+                                            document.getElementById("appointmentId").textContent = response.id;
+                                        } else {
+                                            console.error("Failed to save appointment");
+                                        }
+                                    }
+                                };
+
+                                xhr.send(JSON.stringify({
+                                    booked_at: booked_at,
+                                    service_name: service_name,
+                                    service_type: service_type,
+                                    office: office,
+                                }));
+                                closeConfirmationOptions();
+                                success();
+                            }
+                        });
                         document
                             .getElementById("cancelButton")
                             .addEventListener("click", function () {

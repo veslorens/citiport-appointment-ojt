@@ -42,12 +42,16 @@ class AppointmentController extends Controller
         $data['office'] = $office;
         $data['status'] = 'Pending';
         $data['booked_at'] = $booked_at;
-        $data['updated_at'] = Carbon::now()->toDateTimeString(); // Use Carbon for current datetime
-        $data['created_at'] = Carbon::now()->toDateTimeString(); // Use Carbon for current datetime
+        $data['updated_at'] = Carbon::now()->toDateTimeString();
+        $data['created_at'] = Carbon::now()->toDateTimeString();
 
         $newAppointment = Appointment::create($data);
-        return redirect(route('appointment.schedule'));
+
+        // return redirect(route('appointment.schedule'));
+        return response()->json(['id' => $newAppointment->id]);
     }
+
+
 
     public function destroy($id)
     {
