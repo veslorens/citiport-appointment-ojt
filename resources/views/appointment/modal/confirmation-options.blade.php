@@ -9,8 +9,9 @@
                 <p>Are you sure you want to proceed with the appointment?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" onclick="closeConfirmationOptions()">Cancel</button>
-                <button type="button" class="btn btn-primary" id="close" onclick="close()">Confirm</button>
+                <button type="button" class="btn btn-secondary" id="cancelButton"
+                    onclick="closeConfirmationOptions()">Cancel</button>
+                <button type="button" class="btn btn-primary" id="confirmButton">Confirm</button>
             </div>
         </div>
     </div>

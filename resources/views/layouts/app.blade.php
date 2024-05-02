@@ -18,6 +18,11 @@
 
     <div class="content">
         @yield('content')
+        @include('appointment.modal.confirmation-options')
+        @include('appointment.modal.empty-All')
+        @include('appointment.modal.empty-Service-Details')
+        @include('appointment.modal.empty-TimeSlots')
+        @include('appointment.modal.success')
     </div>
 
     <footer>
@@ -29,8 +34,8 @@
         var appointmentId = @json($appointment->id ?? null);
     </script>
 
-    <script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/project/schedule.js') }}"></script>
+    <script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/fullcalendar/core/index.global.min.js') }}" defer></script>
     <script src="{{ asset('js/fullcalendar/daygrid/index.global.min.js') }}" defer></script>
 </body>

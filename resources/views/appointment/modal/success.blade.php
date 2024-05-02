@@ -7,6 +7,7 @@
             </div>
             <div class="modal-body">
                 <p>Appointment Successfully Saved</p>
+                <p>ID saved in the database: <span id="appointmentId"></span></p>
             </div>
             <div class="modal-footer">
 
