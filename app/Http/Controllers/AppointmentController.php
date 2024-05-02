@@ -7,8 +7,6 @@ use App\Models\Appointment;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
-
-
 class AppointmentController extends Controller
 {
     public function index()
@@ -44,13 +42,9 @@ class AppointmentController extends Controller
         $data['booked_at'] = $booked_at;
         $data['updated_at'] = Carbon::now()->toDateTimeString();
         $data['created_at'] = Carbon::now()->toDateTimeString();
-
         $newAppointment = Appointment::create($data);
-
-        // return redirect(route('appointment.schedule'));
         return response()->json(['id' => $newAppointment->id]);
     }
-
 
 
     public function destroy($id)
@@ -76,7 +70,6 @@ class AppointmentController extends Controller
         $appointment->office = $request->input('office');
         $appointment->updated_at = date('Y-m-d H:i:s');
         $appointment->save();
-
         return response()->json(['message' => 'Appointment updated successfully'], 200);
     }
 }

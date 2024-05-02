@@ -8,10 +8,10 @@ if (appointmentId) {
     linkId = false;
 }
 
-var workingDays = 10;
-var slotsPerTime = 10;
+var workingDays = 20;
+var slotsPerTime = 1;
 var opening = 8;
-var closing = 11;
+var closing = 10;
 
 function emptyAll() {
     var modal = document.getElementById("emptyAll");
@@ -144,11 +144,10 @@ document.addEventListener("DOMContentLoaded", function () {
     let firstNonZeroStart = null;
 
     eventsArray.forEach((event) => {
-        if (event.title !== 0 && firstNonZeroTitle === null) {
+        if (event.title > 0 && firstNonZeroTitle === null) {
             firstNonZeroTitle = event.title;
             firstNonZeroStart = event.start;
-        }
-        if (event.title === 0) {
+        } else if (event.title <= 0) {
             event.color = "red";
         }
     });
@@ -156,6 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const EarliestAvailableAppointment = document.getElementById(
         "EarliestAvailableAppointment"
     );
+
     if (firstNonZeroTitle !== null && firstNonZeroStart !== null) {
         var appointmentDate = new Date(firstNonZeroStart);
         var formattedDate = appointmentDate.toLocaleDateString("en-US", {
@@ -334,42 +334,53 @@ document.addEventListener("DOMContentLoaded", function () {
                         emptyServiceDetails();
                     } else {
                         confirmationOptions();
-
                         document.getElementById("confirmButton").addEventListener("click", function () {
                             if (confirm) {
                                 var xhr = new XMLHttpRequest();
-
                                 if (linkId === false) {
                                     xhr.open("POST", "/appointment/store", true);
+                                    xhr.setRequestHeader("Content-Type", "application/json");
+                                    xhr.setRequestHeader("X-CSRF-Token", csrfToken);
+                                    xhr.onreadystatechange = function () {
+                                        if (xhr.readyState === XMLHttpRequest.DONE) {
+                                            if (xhr.status === 200) {
+                                                var response = JSON.parse(xhr.responseText);
+                                                console.log("ID saved in the database:", response.id);
+                                                document.getElementById("appointmentId").textContent = response.id;
+                                            } else {
+                                                console.error("Failed to save appointment");
+                                            }
+                                        }
+                                    };
+                                    xhr.send(JSON.stringify({
+                                        booked_at: booked_at,
+                                        service_name: service_name,
+                                        service_type: service_type,
+                                        office: office,
+                                    }));
+
+                                    closeConfirmationOptions();
+                                    success();
+
                                 } else if (linkId === true) {
                                     xhr.open("POST", `/appointment/${appointmentId}/update`, true);
+                                    xhr.setRequestHeader("Content-Type", "application/json");
+                                    xhr.setRequestHeader("X-CSRF-Token", csrfToken);
+                                    document.getElementById("appointmentId").textContent = appointmentId;
+
+                                    xhr.send(JSON.stringify({
+                                        booked_at: booked_at,
+                                        service_name: service_name,
+                                        service_type: service_type,
+                                        office: office,
+                                    }));
+
+                                    closeConfirmationOptions();
+                                    success();
                                 }
-
-                                xhr.setRequestHeader("Content-Type", "application/json");
-                                xhr.setRequestHeader("X-CSRF-Token", csrfToken);
-
-                                xhr.onreadystatechange = function () {
-                                    if (xhr.readyState === XMLHttpRequest.DONE) {
-                                        if (xhr.status === 200) {
-                                            var response = JSON.parse(xhr.responseText);
-                                            console.log("ID saved in the database:", response.id);
-                                            document.getElementById("appointmentId").textContent = response.id;
-                                        } else {
-                                            console.error("Failed to save appointment");
-                                        }
-                                    }
-                                };
-
-                                xhr.send(JSON.stringify({
-                                    booked_at: booked_at,
-                                    service_name: service_name,
-                                    service_type: service_type,
-                                    office: office,
-                                }));
-                                closeConfirmationOptions();
-                                success();
                             }
                         });
+
                         document
                             .getElementById("cancelButton")
                             .addEventListener("click", function () {
@@ -377,6 +388,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             });
                     }
                 });
+
                 var submitButtonDiv = document.getElementById("submitButton");
                 submitButtonDiv.appendChild(submitButton);
             }
