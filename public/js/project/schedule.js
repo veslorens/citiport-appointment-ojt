@@ -74,6 +74,70 @@ function closeSuccess() {
     window.location.reload();
 }
 
+/////////////////////////////////////////
+
+// Delete Modal
+function openDeleteModal(appointmentId) {
+    var deleteForm = document.getElementById('deleteForm');
+    deleteForm.action = '/appointment/' + appointmentId;
+    var modal = document.getElementById('deleteConfirmationModal');
+    modal.classList.add('show');
+    modal.style.display = 'block';
+}
+
+function closeDeleteModal() {
+    var modal = document.getElementById('deleteConfirmationModal');
+    modal.classList.remove('show');
+    modal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    var cancelButton = document.getElementById('cancelButton');
+    if (cancelButton) {
+        cancelButton.addEventListener('click', function () {
+            closeDeleteModal();
+        });
+    }
+
+    var successAlert = document.getElementById('success-alert');
+
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    var successAlert = document.querySelector('.alert-success');
+
+    if (successAlert) {
+        setTimeout(function () {
+            successAlert.style.display = 'none';
+        }, 2000);
+    }
+});
+
+window.addEventListener('load', function () {
+    var loadingOverlay = document.getElementById('loading-overlay');
+    if (loadingOverlay) {
+        loadingOverlay.style.display = 'none';
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const sidebar = document.getElementById('sidebar');
+    const openSidebarBtn = document.getElementById('open-sidebar-btn');
+    const closeSidebarBtn = document.getElementById('close-sidebar-btn');
+    const content = document.getElementById('content');
+
+    openSidebarBtn.addEventListener('click', function () {
+        sidebar.style.width = '250px';
+        content.style.marginLeft = '250px';
+    });
+
+    closeSidebarBtn.addEventListener('click', function () {
+        sidebar.style.width = '0';
+        content.style.marginLeft = '0';
+    });
+});
+
+///////////////////////
 var timeSlots = [];
 for (var i = opening; i < closing; i++) {
     var start = (i < 10 ? "0" : "") + i + ":00";
