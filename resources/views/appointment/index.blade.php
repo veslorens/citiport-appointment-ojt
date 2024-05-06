@@ -8,6 +8,16 @@
         <div class="spinner"></div>
     </div>
 
+     <!-- Sidebar -->
+     <div id="sidebar" class="sidebar">
+        <button id="close-sidebar-btn">&times;</button>
+        <h5 class="sidebar-username">Logged in as: {{ Auth::user()->name }}</h5>
+        <a href="{{ route('logout') }}" class="logout-btn">Logout</a>
+    </div>
+
+    <!-- Page Content -->
+    <div id="content">
+        <button id="open-sidebar-btn">Open Sidebar</button>
     <div class="container mt-2" >
         <h1 class="text-center fs-3 mb-4">Appointments List</h1>
 

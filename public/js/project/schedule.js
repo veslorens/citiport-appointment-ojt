@@ -120,6 +120,24 @@ window.addEventListener('load', function () {
     }
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    const sidebar = document.getElementById('sidebar');
+    const openSidebarBtn = document.getElementById('open-sidebar-btn');
+    const closeSidebarBtn = document.getElementById('close-sidebar-btn');
+    const content = document.getElementById('content');
+
+    openSidebarBtn.addEventListener('click', function () {
+        sidebar.style.width = '250px';
+        content.style.marginLeft = '250px';
+    });
+
+    closeSidebarBtn.addEventListener('click', function () {
+        sidebar.style.width = '0';
+        content.style.marginLeft = '0';
+    });
+});
+
+///////////////////////
 var timeSlots = [];
 for (var i = opening; i < closing; i++) {
     var start = (i < 10 ? "0" : "") + i + ":00";
