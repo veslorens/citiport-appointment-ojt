@@ -6,9 +6,9 @@ use App\Http\Middleware\SuperAdminMiddleware;
 use App\Http\Controllers\AdminController;
 
 Route::group([], function () {
-    Route::get('/', function () {
-        return view('auth.login');
-    });
+    Route::get('/home', function () {
+        return view('appointment.index');
+    })->middleware('auth'); 
 
     // Appointment routes
     Route::get('/appointment', [AppointmentController::class, 'index'])->name('appointment.index');
@@ -20,5 +20,6 @@ Route::group([], function () {
 
 });
 
+// Authentication routes
 Auth::routes();
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard')->middleware('auth');

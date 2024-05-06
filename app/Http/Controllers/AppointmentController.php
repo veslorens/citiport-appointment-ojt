@@ -10,8 +10,8 @@ class AppointmentController extends Controller
 {
     public function index()
     {
-        $appointments = Appointment::paginate(10);
-        return view('appointment.index', ['appointments' => $appointments]);
+        $appointments = Appointment::paginate(10); 
+        return view('appointment.index', compact('appointments'));
     }
 
     public function create()
