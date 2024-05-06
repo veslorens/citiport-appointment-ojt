@@ -182,70 +182,68 @@
 
 /* ////////////////////////////////// */
 
+/* Sidebar styles */
 .sidebar {
     height: 100%;
     width: 0;
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #111;
+    background-color: black;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
+    z-index: 1000; /* Ensure it's above other content */
 }
 
-.sidebar h2 {
+.sidebar h2, .sidebar h5, .sidebar a {
     color: white;
-    text-align: center;
-    margin-top: 20px;
-}
-
-.sidebar-username {
-    color: white;
-    text-align: center;
-    margin-top: 20px;
-}
-
-.sidebar a {
     padding: 10px;
     text-decoration: none;
-    font-size: 20px;
-    color: white;
     display: block;
-    transition: 0.3s;
 }
 
-.sidebar a:hover {
-    color: #f1f1f1;
+.sidebar.open {
+    width: 250px;
 }
 
-#close-sidebar-btn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-}
-
-/* Page Content */
 #content {
-    margin-left: 250px;
     transition: margin-left 0.5s;
 }
 
-#open-sidebar-btn {
-    position: fixed;
-    left: 20px;
-    top: 20px;
-    z-index: 999;
+/* Push content to the right when sidebar opens */
+#content.open {
+    margin-left: 250px;
 }
 
-.navbar-text {
-    color: white;
+.sidebar-menu {
+    list-style-type: none;
+    padding: 0;
 }
 
-.logout-btn {
+.sidebar-menu li {
+    margin-bottom: 10px;
+}
+
+.sidebar-menu li a {
+    color: #333;
+    text-decoration: none;
+}
+
+.sidebar-menu li a:hover {
+    color: #007bff;
+}
+
+
+
+#logout-form-sidebar {
+    position: absolute;
+    bottom: 10px; 
+    left: 10px; 
+}
+
+
+.sidebar-menu .btn-link.logout-btn.white-text {
     color: white;
-    margin-left: 10px;
-    cursor: pointer;
+    font-weight: bold;
 }

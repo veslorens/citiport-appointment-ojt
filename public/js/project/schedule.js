@@ -120,23 +120,32 @@ window.addEventListener('load', function () {
     }
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-    const sidebar = document.getElementById('sidebar');
-    const openSidebarBtn = document.getElementById('open-sidebar-btn');
-    const closeSidebarBtn = document.getElementById('close-sidebar-btn');
-    const content = document.getElementById('content');
+document.addEventListener('DOMContentLoaded', function() {
+    var openSidebarBtn = document.getElementById('open-sidebar-btn');
+    var closeSidebarBtn = document.getElementById('close-sidebar-btn');
+    var sidebar = document.getElementById('sidebar');
+    var content = document.getElementById('content');
 
-    openSidebarBtn.addEventListener('click', function () {
-        sidebar.style.width = '250px';
-        content.style.marginLeft = '250px';
+    openSidebarBtn.addEventListener('click', function() {
+        sidebar.classList.toggle('open');
+        content.classList.toggle('open');
+
+        // Change the button icon based on sidebar state
+        if (sidebar.classList.contains('open')) {
+            openSidebarBtn.innerHTML = '<i class="fa-solid fa-times"></i>'; // Change to close icon
+        } else {
+            openSidebarBtn.innerHTML = '<i class="fa-solid fa-bars"></i>'; // Change to open icon
+        }
     });
 
-    closeSidebarBtn.addEventListener('click', function () {
-        sidebar.style.width = '0';
-        content.style.marginLeft = '0';
+    closeSidebarBtn.addEventListener('click', function() {
+        sidebar.classList.remove('open');
+        content.classList.remove('open');
+
+        // Reset the button icon when sidebar is closed
+        openSidebarBtn.innerHTML = '<i class="fa-solid fa-bars"></i>'; // Change to open icon
     });
 });
-
 ///////////////////////
 var timeSlots = [];
 for (var i = opening; i < closing; i++) {
