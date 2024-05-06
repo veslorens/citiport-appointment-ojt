@@ -4,6 +4,7 @@
 
 .container {
     background-color: #ffffff;
+    padding: 10px;
     padding: 0px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -15,11 +16,26 @@
     height: auto;
 }
 
+.selectedDate {
+    background-color: #6cb4ee;
+    color: #3a78b3;
+    font-weight: bold;
+    border-radius: 5px;
+    text-align: center;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 2px;
+}
+
 .scheduleAvailable {
     background-color: #4fffb0;
     color: green;
     font-weight: bold;
     border-radius: 5px;
+    text-align: center;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 2px;
 }
 
 .scheduleFullyBooked {
@@ -27,11 +43,15 @@
     color: red;
     font-weight: bold;
     border-radius: 5px;
+    text-align: center;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 2px;
 }
 
-@media (max-width: 767px) {
-    .space {
-        height: auto;
+@media only screen and (max-width: 768px) {
+    .scheduleFullyBooked {
+        font-size: 14px;
     }
 }
 
@@ -52,7 +72,7 @@
 .fc-daygrid-day-number {
     font-style: normal;
     text-decoration: none; /* Remove underlines */
-    color: #696969;
+    color: #000000;
 }
 .fc .fc-toolbar.fc-header-toolbar {
     margin-bottom: 1px;
@@ -149,3 +169,75 @@
     }
 }
 
+
+.fc .fc-toolbar-title {
+    font-size: 20px;
+}
+
+@media screen and (max-width: 768px) {
+    .fc .fc-toolbar-title {
+        font-size: 15px;
+    }
+}
+
+.fc .fc-button {
+    padding: 1px;
+}
+
+@media screen and (max-width: 768px) {
+    .fc .fc-button {
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .fc .fc-toolbar-title {
+        font-size: 15px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .fc .fc-col-header-cell-cushion {
+        padding: 5px;
+        font-size: 10px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .card-body h2 {
+        font-size: 20px; /* Adjust font size for smaller screens */
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .card-body .form-label {
+        font-size: 14px;
+        font-weight: bold;
+    }
+}
+
+/* Media query for mobile devices */
+@media screen and (max-width: 768px) {
+    /* Change font size for mobile */
+    #EarliestAvailableAppointment {
+        font-size: 12px;
+        font-weight: bold;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .form-select {
+        font-size: 12px;
+    }
+}
+
+.custom-button {
+    background-color: #4fffb0;
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    width: 90%;
+    cursor: pointer;
+    display: inline-block;
+}

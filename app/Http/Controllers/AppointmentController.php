@@ -29,22 +29,22 @@ class AppointmentController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'booked_at' => 'required|date',
-            'service_name' => 'required|string',
-            'service_type' => 'required|string',
-            'office' => 'required|string',
-        ]);
+        $booked_at = $request->input('booked_at');
+        $service_name = $request->input('service_name');
+        $service_type = $request->input('service_type');
+        $office = $request->input('office');
 
-        $data = $request->only(['booked_at', 'service_name', 'service_type', 'office']);
+        $data['service_name'] = $service_name;
+        $data['service_type'] = $service_type;
+        $data['office'] = $office;
         $data['status'] = 'Pending';
-        $data['created_at'] = Carbon::now();
-        $data['updated_at'] = Carbon::now();
-
-        Appointment::create($data);
-
-        return redirect(route('appointment.schedule'))->with('success', 'Appointment created successfully!');
+        $data['booked_at'] = $booked_at;
+        $data['updated_at'] = Carbon::now()->toDateTimeString();
+        $data['created_at'] = Carbon::now()->toDateTimeString();
+        $newAppointment = Appointment::create($data);
+        return response()->json(['id' => $newAppointment->id]);
     }
+
 
     public function destroy($id)
     {
@@ -63,6 +63,12 @@ class AppointmentController extends Controller
     public function update(Request $request, $id)
     {
         $appointment = Appointment::findOrFail($id);
+        $appointment->booked_at = $request->input('booked_at');
+        $appointment->service_name = $request->input('service_name');
+        $appointment->service_type = $request->input('service_type');
+        $appointment->office = $request->input('office');
+        $appointment->updated_at = date('Y-m-d H:i:s');
+        $appointment->save();
 
         $request->validate([
             'booked_at' => 'required|date',

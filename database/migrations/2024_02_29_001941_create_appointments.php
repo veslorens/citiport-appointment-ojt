@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
             $table->string('service_name', 50);
-            $table->string('service_type');
-            $table->string('office');
-            $table->string('status');
+            $table->string('service_type', 50);
+            $table->string('office', 50);
+            $table->string('status', 50);
             $table->timestamp('booked_at')->nullable();
             $table->timestamps();
         });
