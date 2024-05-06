@@ -8,13 +8,8 @@ if (appointmentId) {
     linkId = false;
 }
 
-var workingDays = 20;
-var slotsPerTime = 1;
-var opening = 8;
-var closing = 10;
-
-function emptyAll() {
-    var modal = document.getElementById("emptyAll");
+function emptyAllModal() {
+    var modal = document.getElementById("emptyAllModal");
     modal.classList.add("show");
     modal.style.display = "block";
 }
@@ -73,6 +68,57 @@ function closeSuccess() {
     modal.style.display = "none";
     window.location.reload();
 }
+
+///////////////////////////////////
+
+// Delete Modal
+function openDeleteModal(appointmentId) {
+    var deleteForm = document.getElementById('deleteForm');
+    deleteForm.action = '/appointment/' + appointmentId;
+    var modal = document.getElementById('deleteConfirmationModal');
+    modal.classList.add('show');
+    modal.style.display = 'block';
+}
+
+function closeDeleteModal() {
+    var modal = document.getElementById('deleteConfirmationModal');
+    modal.classList.remove('show');
+    modal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    var cancelButton = document.getElementById('cancelButton');
+    if(cancelButton) {
+        cancelButton.addEventListener('click', function() {
+            closeDeleteModal();
+        });
+    }
+
+    var successAlert = document.getElementById('success-alert');
+
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    var successAlert = document.querySelector('.alert-success');
+    
+    if (successAlert) {
+        setTimeout(function() {
+            successAlert.style.display = 'none';
+        }, 2000);
+    }
+});
+
+window.addEventListener('load', function () {
+    var loadingOverlay = document.getElementById('loading-overlay');
+    if (loadingOverlay) {
+        loadingOverlay.style.display = 'none';
+    }
+});
+
+var workingDays = 10;
+var slotsPerTime = 1;
+var opening = 8;
+var closing = 17;
 
 var timeSlots = [];
 for (var i = opening; i < closing; i++) {
