@@ -23,12 +23,7 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                // Check if the authenticated user is an admin
-                if (Auth::user()->isAdmin()) {
-                    return redirect('/appointment'); // Redirect admins to the appointments index page
-                } else {
-                    return redirect(RouteServiceProvider::HOME); // Default redirection for other authenticated users
-                }
+                return redirect(RouteServiceProvider::HOME);
             }
         }
 

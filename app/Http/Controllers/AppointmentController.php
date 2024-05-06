@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Model;
 use App\Models\Appointment;
+use Illuminate\Http\Request;
 use Carbon\Carbon;
 
 class AppointmentController extends Controller
 {
     public function index()
     {
-        $appointments = Appointment::paginate(10);
-        return view('appointment.index', compact('appointments'));
+        $appointment = Appointment::paginate(10);
+        return view('appointment.index', ['appointments' => $appointment]);
     }
 
     public function create()
@@ -50,7 +51,7 @@ class AppointmentController extends Controller
     {
         $appointment = Appointment::findOrFail($id);
         $appointment->delete();
-        return redirect()->back()->with('success', 'Appointment deleted successfully!');
+        return redirect()->back();
     }
 
     public function edit($id)
