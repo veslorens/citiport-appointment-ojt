@@ -12,7 +12,13 @@ class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    protected $redirectTo = '/home'; // Default redirect path for non-admins
+    protected function redirectTo()
+    {
+        if (auth()->user()->isAdmin()) {
+            return route('appointment.index');
+        } 
+    }
+
 
     public function __construct()
     {
@@ -39,22 +45,11 @@ class LoginController extends Controller
         return redirect()->route('login');
     }
 
-    protected function authenticated(Request $request, $user)
-    {
-        if ($user->isAdmin()) {
-            return redirect()->route('appointment.index');
-        }
-
-        return redirect()->intended($this->redirectPath());
-    }
-
-    
     public function username()
     {
         return 'email_or_name';
     }
 
-   
     protected function credentials(Request $request)
     {
         $login = $request->input($this->username());

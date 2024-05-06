@@ -18,9 +18,7 @@ Route::group([], function () {
     Route::post('/appointment/{id}/update', [AppointmentController::class, 'update'])->name('appointment.update');
     Route::delete('/appointment/{id}', [AppointmentController::class, 'destroy'])->name('appointment.destroy');
 
-    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard')->middleware('auth');
 });
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard')->middleware('auth');

@@ -23,15 +23,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('appointment.schedule');
+        return view('appointment.index');
     }
     protected function authenticated(Request $request, $user)
 {
     if ($user->isAdmin()) {
         return redirect()->route('appointment.index'); 
     }
-
-    return redirect()->route('appointment.schedule'); 
 
 }
 }
