@@ -67,6 +67,15 @@ function success() {
     modal.style.display = "block";
 }
 
+function closeSuccess() {
+    var modal = document.getElementById("success");
+    modal.classList.remove("show");
+    modal.style.display = "none";
+    window.location.reload();
+}
+
+/////////////////////////////////////////
+
 // Delete Modal
 function openDeleteModal(appointmentId) {
     var deleteForm = document.getElementById('deleteForm');
@@ -110,14 +119,6 @@ window.addEventListener('load', function () {
         loadingOverlay.style.display = 'none';
     }
 });
-
-//////////////////////////////////////////////////////
-function closeSuccess() {
-    var modal = document.getElementById("success");
-    modal.classList.remove("show");
-    modal.style.display = "none";
-    window.location.reload();
-}
 
 var timeSlots = [];
 for (var i = opening; i < closing; i++) {
@@ -441,6 +442,3 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     calendar.render();
 });
-
-
-///////////////////////////////////////////////////////

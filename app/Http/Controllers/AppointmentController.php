@@ -41,6 +41,8 @@ class AppointmentController extends Controller
         $data['booked_at'] = $booked_at;
         $data['updated_at'] = Carbon::now()->toDateTimeString();
         $data['created_at'] = Carbon::now()->toDateTimeString();
+        $data['updated_at'] = Carbon::now()->toDateTimeString();
+        $data['created_at'] = Carbon::now()->toDateTimeString();
         $newAppointment = Appointment::create($data);
         return response()->json(['id' => $newAppointment->id]);
     }
@@ -69,15 +71,6 @@ class AppointmentController extends Controller
         $appointment->office = $request->input('office');
         $appointment->updated_at = date('Y-m-d H:i:s');
         $appointment->save();
-
-        $request->validate([
-            'booked_at' => 'required|date',
-            'service_name' => 'required|string',
-            'service_type' => 'required|string',
-            'office' => 'required|string',
-        ]);
-
-        $appointment->update($request->only(['booked_at', 'service_name', 'service_type', 'office']));
 
         return response()->json(['message' => 'Appointment updated successfully'], 200);
     }
