@@ -73,7 +73,6 @@ function closeSuccess() {
     modal.style.display = "none";
     window.location.reload();
 }
-<<<<<<< HEAD
 
 /////////////////////////////////////////
 
@@ -120,8 +119,6 @@ window.addEventListener('load', function () {
         loadingOverlay.style.display = 'none';
     }
 });
-=======
->>>>>>> origin
 
 var timeSlots = [];
 for (var i = opening; i < closing; i++) {
