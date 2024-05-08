@@ -14,65 +14,34 @@ var opening = 8;
 var closing = 10;
 
 function emptyAll() {
-    var modal = document.getElementById("emptyAll");
-    modal.classList.add("show");
-    modal.style.display = "block";
+    Swal.fire({
+        title: 'Empty Form',
+        text: 'Please fill in all fields.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+    });
 }
 
-function closeEmptyAll() {
-    var modal = document.getElementById("emptyAll");
-    modal.classList.remove("show");
-    modal.style.display = "none";
-}
 
 function emptyTimeSlots() {
-    var modal = document.getElementById("emptyTimeSlots");
-    modal.classList.add("show");
-    modal.style.display = "block";
-}
-
-function closeEmptyTimeSlots() {
-    var modal = document.getElementById("emptyTimeSlots");
-    modal.classList.remove("show");
-    modal.style.display = "none";
+    Swal.fire({
+        title: 'Empty Time Slots!',
+        text: 'Please select a time slot.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+    });
 }
 
 function emptyServiceDetails() {
-    var modal = document.getElementById("emptyServiceDetails");
-    modal.classList.add("show");
-    modal.style.display = "block";
+    Swal.fire({
+        title: 'Empty Service Details',
+        text: 'Please complete service details before proceeding.',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+    });
 }
 
-function closeEmptyServiceDetails() {
-    var modal = document.getElementById("emptyServiceDetails");
-    modal.classList.remove("show");
-    modal.style.display = "none";
-}
 
-function confirmationOptions() {
-    var modal = document.getElementById("confirmationOptions");
-    modal.classList.add("show");
-    modal.style.display = "block";
-}
-
-function closeConfirmationOptions() {
-    var modal = document.getElementById("confirmationOptions");
-    modal.classList.remove("show");
-    modal.style.display = "none";
-}
-
-function success() {
-    var modal = document.getElementById("success");
-    modal.classList.add("show");
-    modal.style.display = "block";
-}
-
-function closeSuccess() {
-    var modal = document.getElementById("success");
-    modal.classList.remove("show");
-    modal.style.display = "none";
-    window.location.reload();
-}
 
 var timeSlots = [];
 for (var i = opening; i < closing; i++) {
@@ -302,6 +271,38 @@ document.addEventListener("DOMContentLoaded", function () {
                 submitButton.classList.add("custom-button");
 
                 submitButton.addEventListener("click", function () {
+
+                    var client_name;
+                    var client_contact_no;
+                    var currentUrl = window.location.href;
+                    console.log(currentUrl);
+                    var queryString = currentUrl.slice(currentUrl.indexOf('?') + 1);
+                    var paramsArray = queryString.split('&');
+
+                    paramsArray.forEach(function (param) {
+                        try {
+                            var pair = param.split('=');
+                            var key = pair[0];
+                            var value = decodeURIComponent(pair[1].replace(/\+/g, ' '));
+                            if (key === "client_name") {
+                                client_name = value.replace(/"/g, '');
+                            } else if (key === "client_contact_no") {
+                                client_contact_no = value.replace(/"/g, '');
+                            }
+                        } catch (error) {
+                            // Handle error by setting the respective variable to null
+                            if (key === "client_name") {
+                                client_name = null;
+                            } else if (key === "client_contact_no") {
+                                client_contact_no = null;
+                            }
+                            console.error("Error decoding parameter:", error);
+                        }
+                    });
+
+                    console.log("Client Name:", client_name);
+                    console.log("Client Contact Number:", client_contact_no);
+
                     var csrfToken = document
                         .querySelector('meta[name="csrf-token"]')
                         .getAttribute("content");
@@ -333,9 +334,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     ) {
                         emptyServiceDetails();
                     } else {
-                        confirmationOptions();
-                        document.getElementById("confirmButton").addEventListener("click", function () {
-                            if (confirm) {
+                        Swal.fire({
+                            title: "Do you want to save the changes?",
+                            showCancelButton: true,
+                            confirmButtonText: "Save",
+                            cancelButtonText: "Cancel",
+                        }).then((result) => {
+                            if (result.isConfirmed) {
                                 var xhr = new XMLHttpRequest();
                                 if (linkId === false) {
                                     xhr.open("POST", "/appointment/store", true);
@@ -345,50 +350,53 @@ document.addEventListener("DOMContentLoaded", function () {
                                         if (xhr.readyState === XMLHttpRequest.DONE) {
                                             if (xhr.status === 200) {
                                                 var response = JSON.parse(xhr.responseText);
-                                                console.log("ID saved in the database:", response.id);
-                                                document.getElementById("appointmentId").textContent = response.id;
-                                            } else {
-                                                console.error("Failed to save appointment");
+                                                var savedId = response.id;
+                                                console.log("ID saved in the database:", savedId);
+                                                document.getElementById("appointmentId").textContent = savedId;
+                                                Swal.fire("Saved!", `Reference ID: ${savedId}`, "success")
+                                                    .then(() => {
+                                                        location.reload();
+                                                    });
                                             }
                                         }
                                     };
+
                                     xhr.send(JSON.stringify({
                                         booked_at: booked_at,
                                         service_name: service_name,
                                         service_type: service_type,
                                         office: office,
+                                        client_name: client_name,
+                                        client_contact_no: client_contact_no,
                                     }));
-
-                                    closeConfirmationOptions();
-                                    success();
 
                                 } else if (linkId === true) {
                                     xhr.open("POST", `/appointment/${appointmentId}/update`, true);
                                     xhr.setRequestHeader("Content-Type", "application/json");
                                     xhr.setRequestHeader("X-CSRF-Token", csrfToken);
-                                    document.getElementById("appointmentId").textContent = appointmentId;
-
+                                    var savedId = appointmentId
+                                    console.log("ID saved in the database:", savedId);
+                                    document.getElementById("appointmentId").textContent = savedId;
+                                    Swal.fire("Saved!", `Reference ID: ${savedId}`, "success")
+                                        .then(() => {
+                                            location.reload();
+                                        });
                                     xhr.send(JSON.stringify({
                                         booked_at: booked_at,
                                         service_name: service_name,
                                         service_type: service_type,
                                         office: office,
+                                        client_name: client_name,
+                                        client_contact_no: client_contact_no,
                                     }));
-
-                                    closeConfirmationOptions();
-                                    success();
                                 }
+                            } else {
+                                Swal.fire("Changes are not saved", "", "info");
+                                window.location.reload();
                             }
                         });
-
-                        document
-                            .getElementById("cancelButton")
-                            .addEventListener("click", function () {
-                                location.reload();
-                            });
                     }
                 });
-
                 var submitButtonDiv = document.getElementById("submitButton");
                 submitButtonDiv.appendChild(submitButton);
             }

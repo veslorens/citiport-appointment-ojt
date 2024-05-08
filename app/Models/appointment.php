@@ -9,12 +9,14 @@ class Appointment extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
+    protected $fillable =
+    [
         'service_name',
         'service_type',
         'office',
+        'client_name',
+        'client_contact_no',
         'status',
-        'booked_at',
-        'created_at',
+        'booked_at'
     ];
 }

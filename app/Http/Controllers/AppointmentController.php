@@ -34,18 +34,22 @@ class AppointmentController extends Controller
         $service_name = $request->input('service_name');
         $service_type = $request->input('service_type');
         $office = $request->input('office');
+        $client_name = $request->input('client_name'); // Add this line to retrieve client_name
+        $client_contact_no = $request->input('client_contact_no'); // Add this line to retrieve client_contact_no
 
         $data['service_name'] = $service_name;
         $data['service_type'] = $service_type;
         $data['office'] = $office;
+        $data['client_name'] = $client_name; // Add client_name to the data array
+        $data['client_contact_no'] = $client_contact_no; // Add client_contact_no to the data array
         $data['status'] = 'Pending';
         $data['booked_at'] = $booked_at;
         $data['updated_at'] = Carbon::now()->toDateTimeString();
         $data['created_at'] = Carbon::now()->toDateTimeString();
+
         $newAppointment = Appointment::create($data);
         return response()->json(['id' => $newAppointment->id]);
     }
-
 
     public function destroy($id)
     {

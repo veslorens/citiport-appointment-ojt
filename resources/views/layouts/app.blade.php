@@ -8,6 +8,7 @@
     <title>Appointments List</title>
     <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/project/appointment.css') }}">
+
 </head>
 
 <header>
@@ -33,6 +34,7 @@
         var appointments = @json($appointments);
         var appointmentId = @json($appointment->id ?? null);
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <script src="{{ asset('js/project/schedule.js') }}"></script>
     <script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
