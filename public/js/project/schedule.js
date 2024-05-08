@@ -22,7 +22,6 @@ function emptyAll() {
     });
 }
 
-
 function emptyTimeSlots() {
     Swal.fire({
         title: 'Empty Time Slots!',
@@ -40,8 +39,6 @@ function emptyServiceDetails() {
         confirmButtonText: 'OK',
     });
 }
-
-
 
 var timeSlots = [];
 for (var i = opening; i < closing; i++) {
@@ -391,8 +388,11 @@ document.addEventListener("DOMContentLoaded", function () {
                                     }));
                                 }
                             } else {
-                                Swal.fire("Changes are not saved", "", "info");
-                                window.location.reload();
+
+                                Swal.fire("Changes are not saved", "", "info")
+                                    .then(() => {
+                                        location.reload();
+                                    });
                             }
                         });
                     }

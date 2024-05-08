@@ -19,11 +19,7 @@
 
     <div class="content">
         @yield('content')
-        @include('appointment.modal.confirmation-options')
-        @include('appointment.modal.empty-All')
-        @include('appointment.modal.empty-Service-Details')
-        @include('appointment.modal.empty-TimeSlots')
-        @include('appointment.modal.success')
+        @include('appointment.modal.sendReference')
     </div>
 
     <footer>
