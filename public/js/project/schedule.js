@@ -35,7 +35,6 @@ function emptyServiceDetails() {
     });
 }
 
-
 var workingDays = 15;
 var slotsPerTime = 1;
 var opening = 8;
@@ -50,11 +49,10 @@ for (var i = opening; i < closing; i++) {
 
 var countTimeSlots = timeSlots.length;
 var slotsPerDay = slotsPerTime * countTimeSlots;
-
 var currentDate = new Date();
 var datesArray = [];
-
 var formattedToday = currentDate.toISOString().slice(0, 10);
+
 datesArray.push([formattedToday, slotsPerDay]);
 while (datesArray.length < workingDays) {
     currentDate.setDate(currentDate.getDate() + 1);
@@ -63,7 +61,6 @@ while (datesArray.length < workingDays) {
         datesArray.push([formattedDate, slotsPerDay]);
     }
 }
-
 
 var dateCounts = [];
 var identifiedByCounts = [];
@@ -84,13 +81,11 @@ appointments.forEach(function (appointment) {
         .toLocaleString("en-US", options)
         .replace(/\//g, "-")
         .replace(",", "");
-
     if (dateCounts.hasOwnProperty(formattedDate)) {
         dateCounts[formattedDate]++;
     } else {
         dateCounts[formattedDate] = 1;
     }
-
     identifiedByCounts[formattedDateTime] = appointmentDate;
 });
 
@@ -98,10 +93,8 @@ var eventsArray = [];
 for (var i = 0; i < datesArray.length; i++) {
     var date = datesArray[i][0];
     var count = datesArray[i][1];
-
     if (dateCounts.hasOwnProperty(date)) {
         count -= dateCounts[date];
-
         delete dateCounts[date];
     }
     eventsArray.push({
@@ -113,7 +106,6 @@ for (var i = 0; i < datesArray.length; i++) {
 document.addEventListener("DOMContentLoaded", function () {
     let firstNonZeroTitle = null;
     let firstNonZeroStart = null;
-
     eventsArray.forEach((event) => {
         if (event.title > 0 && firstNonZeroTitle === null) {
             firstNonZeroTitle = event.title;
@@ -146,32 +138,25 @@ for (var i = 0; i < appointments.length; i++) {
     }
 }
 
-
-
 document.addEventListener("DOMContentLoaded", function () {
     let previousClickedEvent = null;
     var calendarEl = document.getElementById("calendar");
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: "dayGridMonth",
         events: eventsArray,
-
         eventClick: function (info) {
             if (info.event.title === "0" || parseInt(info.event.title) < 0) {
                 return false;
             }
-
             if (previousClickedEvent) {
                 if (previousClickedEvent.style.backgroundColor !== "red") {
                     previousClickedEvent.style.backgroundColor = "";
                 }
             }
-
             if (info.el.style.backgroundColor !== "red") {
                 info.el.style.backgroundColor = "#6CB4EE";
             }
-
             previousClickedEvent = info.el;
-
             timeSlots.forEach((slot) => {
                 slot.count = slotsPerTime;
             });

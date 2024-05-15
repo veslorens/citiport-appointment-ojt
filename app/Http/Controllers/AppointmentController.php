@@ -46,7 +46,6 @@ class AppointmentController extends Controller
         $data['booked_at'] = $booked_at;
         $data['updated_at'] = Carbon::now()->toDateTimeString();
         $data['created_at'] = Carbon::now()->toDateTimeString();
-
         $newAppointment = Appointment::create($data);
         return response()->json(['id' => $newAppointment->id]);
     }
