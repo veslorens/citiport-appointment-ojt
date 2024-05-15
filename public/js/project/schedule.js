@@ -8,15 +8,10 @@ if (appointmentId) {
     linkId = false;
 }
 
-var workingDays = 20;
-var slotsPerTime = 1;
-var opening = 8;
-var closing = 10;
-
 function emptyAll() {
     Swal.fire({
         title: 'Empty Form',
-        text: 'Please fill in all fields.',
+        text: 'Please ensure all fields are filled in before proceeding.',
         icon: 'error',
         confirmButtonText: 'OK'
     });
@@ -25,8 +20,8 @@ function emptyAll() {
 function emptyTimeSlots() {
     Swal.fire({
         title: 'Empty Time Slots!',
-        text: 'Please select a time slot.',
-        icon: 'error',
+        text: 'Please choose a time slot before proceeding.',
+        icon: 'warning',
         confirmButtonText: 'OK'
     });
 }
@@ -34,11 +29,17 @@ function emptyTimeSlots() {
 function emptyServiceDetails() {
     Swal.fire({
         title: 'Empty Service Details',
-        text: 'Please complete service details before proceeding.',
+        text: 'Please provide service details before proceeding.',
         icon: 'warning',
         confirmButtonText: 'OK',
     });
 }
+
+
+var workingDays = 15;
+var slotsPerTime = 1;
+var opening = 8;
+var closing = 14;
 
 var timeSlots = [];
 for (var i = opening; i < closing; i++) {
@@ -50,15 +51,19 @@ for (var i = opening; i < closing; i++) {
 var countTimeSlots = timeSlots.length;
 var slotsPerDay = slotsPerTime * countTimeSlots;
 
+var currentDate = new Date();
 var datesArray = [];
-for (var i = 0; datesArray.length < workingDays; i++) {
-    var futureDate = new Date();
-    futureDate.setDate(futureDate.getDate() + i);
-    if (futureDate.getDay() !== 6 && futureDate.getDay() !== 0) {
-        var formattedDate = futureDate.toISOString().slice(0, 10);
+
+var formattedToday = currentDate.toISOString().slice(0, 10);
+datesArray.push([formattedToday, slotsPerDay]);
+while (datesArray.length < workingDays) {
+    currentDate.setDate(currentDate.getDate() + 1);
+    if (currentDate.getDay() !== 6 && currentDate.getDay() !== 0) {
+        var formattedDate = currentDate.toISOString().slice(0, 10);
         datesArray.push([formattedDate, slotsPerDay]);
     }
 }
+
 
 var dateCounts = [];
 var identifiedByCounts = [];
@@ -141,6 +146,8 @@ for (var i = 0; i < appointments.length; i++) {
     }
 }
 
+
+
 document.addEventListener("DOMContentLoaded", function () {
     let previousClickedEvent = null;
     var calendarEl = document.getElementById("calendar");
@@ -162,6 +169,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (info.el.style.backgroundColor !== "red") {
                 info.el.style.backgroundColor = "#6CB4EE";
             }
+
             previousClickedEvent = info.el;
 
             timeSlots.forEach((slot) => {
@@ -254,13 +262,13 @@ document.addEventListener("DOMContentLoaded", function () {
             if (mediaQuery.matches) {
                 var labels = document.querySelectorAll("label");
                 labels.forEach(function (label) {
-                    label.style.fontSize = "13px";
+                    label.style.fontSize = "10px";
                 });
             }
-
             var existingSubmitButton = document
                 .getElementById("submitButton")
                 .querySelector("input[type='button']");
+
             if (!existingSubmitButton) {
                 var submitButton = document.createElement("input");
                 submitButton.setAttribute("type", "button");
@@ -268,7 +276,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 submitButton.classList.add("custom-button");
 
                 submitButton.addEventListener("click", function () {
-
                     var client_name;
                     var client_contact_no;
                     var currentUrl = window.location.href;
@@ -287,7 +294,6 @@ document.addEventListener("DOMContentLoaded", function () {
                                 client_contact_no = value.replace(/"/g, '');
                             }
                         } catch (error) {
-                            // Handle error by setting the respective variable to null
                             if (key === "client_name") {
                                 client_name = null;
                             } else if (key === "client_contact_no") {
@@ -334,6 +340,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         Swal.fire({
                             title: "Do you want to save the changes?",
                             showCancelButton: true,
+                            icon: 'question',
                             confirmButtonText: "Save",
                             cancelButtonText: "Cancel",
                         }).then((result) => {
@@ -378,6 +385,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                         .then(() => {
                                             location.reload();
                                         });
+
                                     xhr.send(JSON.stringify({
                                         booked_at: booked_at,
                                         service_name: service_name,
@@ -388,7 +396,6 @@ document.addEventListener("DOMContentLoaded", function () {
                                     }));
                                 }
                             } else {
-
                                 Swal.fire("Changes are not saved", "", "info")
                                     .then(() => {
                                         location.reload();
@@ -397,6 +404,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         });
                     }
                 });
+
                 var submitButtonDiv = document.getElementById("submitButton");
                 submitButtonDiv.appendChild(submitButton);
             }
