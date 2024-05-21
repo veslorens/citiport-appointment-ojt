@@ -70,7 +70,7 @@
 }
 .fc-daygrid-day-number {
     font-style: normal;
-    text-decoration: none; /* Remove underlines */
+    text-decoration: none; 
     color: #000000;
 }
 .fc .fc-toolbar.fc-header-toolbar {
@@ -189,7 +189,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    background-color: black;
+    background-color: #050301;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
@@ -231,7 +231,7 @@
 }
 
 .sidebar-menu li a:hover {
-    color: #007bff;
+    background-color: #007bff;
 }
 
 
@@ -246,4 +246,36 @@
 .sidebar-menu .btn-link.logout-btn.white-text {
     color: white;
     font-weight: bold;
+}
+
+
+.sidebar-username {
+    background-color: #101314; 
+    color: white; 
+    padding: 10px; 
+    margin-bottom: 0; 
+    position: relative; 
+    top: -60px; 
+}
+
+/* In your external CSS file or within <style> tags in your HTML */
+#open-sidebar-btn {
+    background-color: #101314; 
+    border-color: #101314; 
+    color: #ffffff; 
+}
+
+#open-sidebar-btn:hover {
+    background-color: #101314; 
+    border-color: #101314; 
+    color: #ffffff; 
+}
+
+.create-admin-btn {
+    margin-left: 189px; 
+}
+
+.search-input {
+    margin-left: -10px; 
+
 }

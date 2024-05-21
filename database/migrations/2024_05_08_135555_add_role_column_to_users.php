@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddRememberTokenToUsersTable extends Migration
+class AddRoleColumnToUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddRememberTokenToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->rememberToken(); 
+            $table->string('role')->default('user'); 
         });
     }
 
@@ -26,7 +26,8 @@ class AddRememberTokenToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('remember_token'); 
+            $table->dropColumn('role');
         });
     }
 }
+

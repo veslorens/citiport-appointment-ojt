@@ -16,9 +16,12 @@ class LoginController extends Controller
     {
         if (auth()->user()->isAdmin()) {
             return route('appointment.index');
-        } 
+        } elseif (auth()->user()->isSuperAdmin()) {
+            return route('superadmin.users');
+        } else {
+            return '/'; 
+        }
     }
-
 
     public function __construct()
     {
@@ -41,7 +44,7 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        // Redirect to login page after logout
+      
         return redirect()->route('login');
     }
 
