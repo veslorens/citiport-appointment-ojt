@@ -12,6 +12,12 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
+    .vue() // Enable Vue support
     .postCss('resources/css/app.css', 'public/css', [
         //
     ]);
+
+// Optionally, you can include versioning and other configurations
+if (mix.inProduction()) {
+    mix.version();
+}
