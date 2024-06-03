@@ -24,6 +24,8 @@
         @include('appointment.modal.empty-Service-Details')
         @include('appointment.modal.empty-TimeSlots')
         @include('appointment.modal.success')
+        @include('superadmin.modal.create')
+        @include('superadmin.modal.edit')
     </div>
 
     <footer>

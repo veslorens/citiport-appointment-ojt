@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Middleware;
 
 use App\Providers\RouteServiceProvider;
@@ -18,15 +17,22 @@ class RedirectIfAuthenticated
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next, ...$guards)
-    {
-        $guards = empty($guards) ? [null] : $guards;
+{
+    $guards = empty($guards) ? [null] : $guards;
 
-        foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
+    foreach ($guards as $guard) {
+        if (Auth::guard($guard)->check()) {
+            $user = Auth::user();
+            if ($user->isAdmin()) {
+                return redirect('/appointment');
+            } elseif ($user->isSuperAdmin()) {
+                return redirect('/superadmin/users');
+            } else {
                 return redirect(RouteServiceProvider::HOME);
             }
         }
-
-        return $next($request);
     }
+
+    return $next($request);
+}
 }

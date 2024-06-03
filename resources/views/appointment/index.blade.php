@@ -4,9 +4,31 @@
 
 @section('content')
 
-    <div id="loading-overlay">
-        <div class="spinner"></div>
-    </div>
+<div id="sidebar" class="sidebar">
+    <h5 class="sidebar-username">Logged in as: {{ Auth::user()->name }}</h5>
+    <ul class="sidebar-menu">
+        <li>
+            <a href="{{ route('appointment.index') }}" class="btn btn-link logout-btn white-text">
+                <i class="fa-solid fa-list-ol"></i> Appointments
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('appointment.schedule') }}" class="btn btn-link logout-btn white-text">
+                <i class="fa-solid fa-calendar-check"></i> Book an Appointment
+            </a>
+        </li>
+    </ul>
+
+    <form id="logout-form-sidebar" action="{{ route('logout') }}" method="POST">
+        @csrf
+        <button type="submit" class="logout-btn btn btn-link"><i class="fa-solid fa-right-from-bracket">Logout</i></button>
+    </form>
+</div>
+
+
+<div id="content">
+    <button id="open-sidebar-btn" class="btn btn-primary"><i class="fa-solid fa-bars"></i></button>
+
 
     <div class="container mt-2" >
         <h1 class="text-center fs-3 mb-4">Appointments List</h1>
@@ -66,21 +88,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="col-md-3 text-left mt-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Logged in as: {{ Auth::user()->name }}</h5>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-12 text-left mt-4">
-        <form id="logout-form" action="{{ route('logout') }}" method="POST">
-            @csrf
-            <button type="submit" class="btn btn-link"><i class="fa-solid fa-right-from-bracket">Logout</i></button>
-        </form>
     </div>
 
     @include('appointment.modal.delete')
