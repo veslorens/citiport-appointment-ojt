@@ -17,6 +17,13 @@
                 <i class="fa-solid fa-calendar-check"></i> Book an Appointment
             </a>
         </li>
+        @if(Auth::user()->isSuperAdmin())
+                <li>
+                    <a href="{{ route('superadmin.users') }}" class="btn btn-link logout-btn white-text">
+                        <i class="fa-solid fa-users"></i> Admins
+                    </a>
+                </li>
+            @endif
     </ul>
 
     <form id="logout-form-sidebar" action="{{ route('logout') }}" method="POST">
