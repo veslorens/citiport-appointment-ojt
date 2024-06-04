@@ -4,6 +4,38 @@
 
 @section('content')
 
+<div id="sidebar" class="sidebar">
+    <h5 class="sidebar-username">Logged in as: {{ Auth::user()->name }}</h5>
+    <ul class="sidebar-menu">
+        <li>
+            <a href="{{ route('appointment.index') }}" class="btn btn-link logout-btn white-text">
+                <i class="fa-solid fa-list-ol"></i> Appointments
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('appointment.schedule') }}" class="btn btn-link logout-btn white-text">
+                <i class="fa-solid fa-calendar-check"></i> Book an Appointment
+            </a>
+        </li>
+        @if(Auth::user()->isSuperAdmin())
+                <li>
+                    <a href="{{ route('superadmin.users') }}" class="btn btn-link logout-btn white-text">
+                        <i class="fa-solid fa-users"></i> Admins
+                    </a>
+                </li>
+            @endif
+    </ul>
+
+    <form id="logout-form-sidebar" action="{{ route('logout') }}" method="POST">
+        @csrf
+        <button type="submit" class="logout-btn btn btn-link"><i
+                class="fa-solid fa-right-from-bracket">Logout</i></button>
+    </form>
+</div>
+<div id="content">
+    <button id="open-sidebar-btn" class="btn btn-primary"><i class="fa-solid fa-bars"></i></button>
+    <div class="container">
+        
     <div class="container mt-4">
         <div class="row justify-content-center">
             <div class="col-md-3 mb-4">
