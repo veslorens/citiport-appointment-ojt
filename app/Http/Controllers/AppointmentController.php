@@ -61,7 +61,13 @@ class AppointmentController extends Controller
     {
         $appointment = Appointment::findOrFail($id);
         $appointments = Appointment::all();
-        return view("appointment.edit", ['appointment' => $appointment, 'appointments' => $appointments]);
+        return view(
+            "appointment.edit",
+            [
+                'appointment' => $appointment,
+                'appointments' => $appointments
+            ]
+        );
     }
 
     public function update(Request $request, $id)

@@ -118,10 +118,6 @@
     }
 }
 
-.fc .fc-button {
-    padding: 1px;
-}
-
 @media screen and (max-width: 768px) {
     .fc .fc-button {
         font-size: 13px;

@@ -10,7 +10,7 @@
                     </div>
                     <div class="card-body">
                         <p>ID: {{ $appointment->id }}</p>
-                        <p>Booked At: {{ \Carbon\Carbon::parse($appointment->booked_at)->format('d M Y') }} 08:00 AM</p>
+                        <p>Booked At: {{ \Carbon\Carbon::parse($appointment->booked_at)->format('d M Y h:i A') }} </p>
 
                         <form>
                             <div class="mb-1">
@@ -54,6 +54,9 @@
                                 </select>
                             </div>
                         </form>
+                    </div>
+                    <div class="card-footer">
+
                     </div>
                 </div>
             </div>

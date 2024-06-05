@@ -16,6 +16,7 @@
         "postcss": "^8.1.14"
     },
     "dependencies": {
-        "fullcalendar": "^6.1.11"
+        "jsbarcode": "^3.11.6",
+        "sweetalert2": "^11.11.0"
     }
 }

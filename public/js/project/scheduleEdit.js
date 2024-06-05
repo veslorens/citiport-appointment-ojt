@@ -1,10 +1,14 @@
 
 linkId = false;
 if (appointmentId) {
+    console.log("Appointment ID:", appointmentId);
+
     var bookedDate = new Date(booked_at);
     var selectedDate = bookedDate.toISOString().split('T')[0];
+    console.log(selectedDate);
     linkId = true;
 } else {
+    console.log("No appointment ID available.");
     linkId = false;
 }
 
@@ -38,7 +42,7 @@ function emptyServiceDetails() {
 var workingDays = 15;
 var slotsPerTime = 1;
 var opening = 8;
-var closing = 15;
+var closing = 10;
 
 var timeSlots = [];
 for (var i = opening; i < closing; i++) {
@@ -50,17 +54,9 @@ for (var i = opening; i < closing; i++) {
 var countTimeSlots = timeSlots.length;
 var slotsPerDay = slotsPerTime * countTimeSlots;
 var currentDate = new Date();
-
-var currentDate = new Date();
-var year = currentDate.getFullYear();
-var month = ("0" + (currentDate.getMonth() + 1)).slice(-2);
-var day = ("0" + currentDate.getDate()).slice(-2);
-var formattedToday = year + "-" + month + "-" + day;
-
-
-
-
 var datesArray = [];
+var formattedToday = currentDate.toISOString().slice(0, 10);
+
 datesArray.push([formattedToday, slotsPerDay]);
 while (datesArray.length < workingDays) {
     currentDate.setDate(currentDate.getDate() + 1);
@@ -284,7 +280,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     var client_name;
                     var client_contact_no;
                     var currentUrl = window.location.href;
-
+                    console.log(currentUrl);
                     var queryString = currentUrl.slice(currentUrl.indexOf('?') + 1);
                     var paramsArray = queryString.split('&');
 
@@ -304,10 +300,12 @@ document.addEventListener("DOMContentLoaded", function () {
                             } else if (key === "client_contact_no") {
                                 client_contact_no = null;
                             }
+                            console.error("Error decoding parameter:", error);
                         }
                     });
 
-
+                    console.log("Client Name:", client_name);
+                    console.log("Client Contact Number:", client_contact_no);
 
                     var csrfToken = document
                         .querySelector('meta[name="csrf-token"]')
@@ -353,71 +351,40 @@ document.addEventListener("DOMContentLoaded", function () {
                                     xhr.open("POST", "/appointment/store", true);
                                     xhr.setRequestHeader("Content-Type", "application/json");
                                     xhr.setRequestHeader("X-CSRF-Token", csrfToken);
+
+                                    ///////////////
                                     xhr.onreadystatechange = function () {
                                         if (xhr.readyState === XMLHttpRequest.DONE) {
                                             if (xhr.status === 200) {
                                                 var response = JSON.parse(xhr.responseText);
                                                 var savedId = response.id;
-
+                                                console.log("ID saved in the database:", savedId);
                                                 document.getElementById("appointmentId").textContent = savedId;
 
                                                 Swal.fire({
                                                     title: 'Saved!',
-                                                    html: `
-                                                    Do you want to download the file?<br>
-                                                    <canvas id="barcodeCanvas"
-                                                    style="border:1px solid black"></canvas>`,
+
+                                                    html: `Reference ID: ${savedId}.<br><br>
+                                                            Name: ${client_name}.<br>
+                                                            Contact No.: ${client_contact_no}.<br><br>
+                                                            Do you want to download the file?<br>
+                                                            <svg id="barcode"></svg>`,
+
                                                     icon: 'success',
                                                     showCancelButton: true,
                                                     confirmButtonText: 'Yes, download it!',
                                                     cancelButtonText: 'No',
                                                     didOpen: () => {
-                                                        const canvas = document.getElementById('barcodeCanvas');
-                                                        const ctx = canvas.getContext('2d');
-                                                        JsBarcode(canvas, savedId, {
-                                                            marginTop: 150,
-                                                            height: 50,
-                                                            marginLeft: 50,
-                                                            marginRight: 50,
-                                                        });
-
-                                                        const textLines = [
-                                                            "Client Name:",
-                                                            `${client_name}`,
-                                                            "Contact No:",
-                                                            `${client_contact_no}`
-                                                        ];
-
-                                                        const textX = -65;
-                                                        const lineHeight = 25;
-                                                        const marginBottom = 5;
-                                                        ctx.font = "16px Arial";
-                                                        ctx.fillStyle = "black";
-
-                                                        textLines.forEach((line, index) => {
-                                                            const textY = 30 + ((lineHeight + marginBottom) * index);
-                                                            ctx.fillText(line, textX, textY);
-                                                        });
-
-
-                                                    },
-                                                    preConfirm: () => {
-                                                        const canvas = document.getElementById('barcodeCanvas');
-                                                        const url = canvas.toDataURL('image/png');
-                                                        const a = document.createElement('a');
-                                                        a.href = url;
-                                                        a.download = `${client_name}_${savedId}.png`;
-                                                        document.body.appendChild(a);
-                                                        a.click();
-                                                        document.body.removeChild(a);
+                                                        JsBarcode("#barcode", savedId);
                                                     }
                                                 }).then(() => {
                                                     location.reload();
                                                 });
-
                                             }
                                         }
                                     };
+                                    /////////////////////
+
 
                                     xhr.send(JSON.stringify({
                                         booked_at: booked_at,
@@ -433,7 +400,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                     xhr.setRequestHeader("Content-Type", "application/json");
                                     xhr.setRequestHeader("X-CSRF-Token", csrfToken);
                                     var savedId = appointmentId
-
+                                    console.log("ID saved in the database:", savedId);
                                     document.getElementById("appointmentId").textContent = savedId;
                                     Swal.fire("Saved!", `Reference ID: ${savedId}`, "success")
                                         .then(() => {

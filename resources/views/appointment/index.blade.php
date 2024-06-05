@@ -2,7 +2,9 @@
 
 @section('title', 'Schedule')
 
-@section('content')<div class="container mt-5">
+@section('content')
+
+    <div class="container mt-5">
         <h1 class="text-center fs-3 mb-4">Appointments List</h1>
         <div class="table-responsive">
             <table class="table table-striped">

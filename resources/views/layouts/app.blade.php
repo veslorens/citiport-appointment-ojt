@@ -26,10 +26,14 @@
 
     </footer>
 
+
     <script>
         var appointments = @json($appointments);
         var appointmentId = @json($appointment->id ?? null);
+        var booked_at = @json($appointment->booked_at ?? null);
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <script src="{{ asset('js/project/schedule.js') }}"></script>
