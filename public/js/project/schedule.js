@@ -35,12 +35,21 @@ function emptyServiceDetails() {
     });
 }
 
-var workingDays = 15;
-var slotsPerTime = 1;
-var opening = 8;
-var closing = 15;
+function lostConnection() {
+    Swal.fire({
+        title: 'Lost Internet Connection',
+        text: 'Please connect to your internet...',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+    });
+}
 
+var workingDays = 5;
+var slotsPerTime = 2;
+var opening = 8;
+var closing = 10;
 var timeSlots = [];
+
 for (var i = opening; i < closing; i++) {
     var start = (i < 10 ? "0" : "") + i + ":00";
     var end = (i < 10 ? "0" : "") + i + ":59";
@@ -50,19 +59,14 @@ for (var i = opening; i < closing; i++) {
 var countTimeSlots = timeSlots.length;
 var slotsPerDay = slotsPerTime * countTimeSlots;
 var currentDate = new Date();
-
-var currentDate = new Date();
 var year = currentDate.getFullYear();
 var month = ("0" + (currentDate.getMonth() + 1)).slice(-2);
 var day = ("0" + currentDate.getDate()).slice(-2);
 var formattedToday = year + "-" + month + "-" + day;
-
-
-
-
 var datesArray = [];
+
 datesArray.push([formattedToday, slotsPerDay]);
-while (datesArray.length < workingDays) {
+while (datesArray.length < workingDays + 1) {
     currentDate.setDate(currentDate.getDate() + 1);
     if (currentDate.getDay() !== 6 && currentDate.getDay() !== 0) {
         var formattedDate = currentDate.toISOString().slice(0, 10);
@@ -152,7 +156,6 @@ for (var i = 0; i < appointments.length; i++) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-
     let previousClickedEvent = null;
     var calendarEl = document.getElementById("calendar");
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -170,11 +173,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
 
-            // Check if the background color is not "red" and not "gold"
             if (info.el.style.backgroundColor !== "red" && info.el.style.backgroundColor !== "gold") {
                 info.el.style.backgroundColor = "#6CB4EE";
             }
-
 
             previousClickedEvent = info.el;
             timeSlots.forEach((slot) => {
@@ -284,7 +285,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     var client_name;
                     var client_contact_no;
                     var currentUrl = window.location.href;
-
                     var queryString = currentUrl.slice(currentUrl.indexOf('?') + 1);
                     var paramsArray = queryString.split('&');
 
@@ -306,9 +306,6 @@ document.addEventListener("DOMContentLoaded", function () {
                             }
                         }
                     });
-
-
-
                     var csrfToken = document
                         .querySelector('meta[name="csrf-token"]')
                         .getAttribute("content");
@@ -358,18 +355,14 @@ document.addEventListener("DOMContentLoaded", function () {
                                             if (xhr.status === 200) {
                                                 var response = JSON.parse(xhr.responseText);
                                                 var savedId = response.id;
-
                                                 document.getElementById("appointmentId").textContent = savedId;
-
                                                 Swal.fire({
                                                     title: 'Saved!',
-                                                    html: `
-                                                    Do you want to download the file?<br>
-                                                    <canvas id="barcodeCanvas"
-                                                    style="border:1px solid black"></canvas>`,
+                                                    html: `Do you want to download the file?<br><br>
+                                                    <canvas id="barcodeCanvas" style="border:1px solid black"></canvas>`,
                                                     icon: 'success',
                                                     showCancelButton: true,
-                                                    confirmButtonText: 'Yes, download it!',
+                                                    confirmButtonText: 'Yes',
                                                     cancelButtonText: 'No',
                                                     didOpen: () => {
                                                         const canvas = document.getElementById('barcodeCanvas');
@@ -380,26 +373,21 @@ document.addEventListener("DOMContentLoaded", function () {
                                                             marginLeft: 50,
                                                             marginRight: 50,
                                                         });
-
                                                         const textLines = [
                                                             "Client Name:",
                                                             `${client_name}`,
                                                             "Contact No:",
                                                             `${client_contact_no}`
                                                         ];
-
                                                         const textX = -65;
                                                         const lineHeight = 25;
                                                         const marginBottom = 5;
                                                         ctx.font = "16px Arial";
                                                         ctx.fillStyle = "black";
-
                                                         textLines.forEach((line, index) => {
                                                             const textY = 30 + ((lineHeight + marginBottom) * index);
                                                             ctx.fillText(line, textX, textY);
                                                         });
-
-
                                                     },
                                                     preConfirm: () => {
                                                         const canvas = document.getElementById('barcodeCanvas');
@@ -414,7 +402,6 @@ document.addEventListener("DOMContentLoaded", function () {
                                                 }).then(() => {
                                                     location.reload();
                                                 });
-
                                             }
                                         }
                                     };
@@ -465,6 +452,4 @@ document.addEventListener("DOMContentLoaded", function () {
         },
     });
     calendar.render();
-
-
 });
