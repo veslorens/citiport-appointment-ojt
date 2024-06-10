@@ -17,7 +17,7 @@ class LoginController extends Controller
         if (auth()->user()->isAdmin()) {
             return route('appointment.index');
         } elseif (auth()->user()->isSuperAdmin()) {
-            return route('superadmin.users');
+            return route('appointment.index');
         } else {
             return '/'; 
         }

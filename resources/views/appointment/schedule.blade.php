@@ -5,32 +5,44 @@
 @section('content')
 
 <div id="sidebar" class="sidebar">
-    <h5 class="sidebar-username">Logged in as: {{ Auth::user()->name }}</h5>
-    <ul class="sidebar-menu">
-        <li>
-            <a href="{{ route('appointment.index') }}" class="btn btn-link logout-btn white-text">
-                <i class="fa-solid fa-list-ol"></i> Appointments
+    <hr class="first-hr">
+    <ul class="nav nav-pills flex-column mb-auto mt-9">
+        <li class="nav-item">
+            <a href="{{ route('appointment.index') }}" class="nav-link link-dark" >
+                <i class="fa-solid fa-list-ol me-2"></i> Appointments
             </a>
         </li>
-        <li>
-            <a href="{{ route('appointment.schedule') }}" class="btn btn-link logout-btn white-text">
-                <i class="fa-solid fa-calendar-check"></i> Book an Appointment
+        <li class="nav-item">
+            <a href="{{ route('appointment.schedule') }}" class="nav-link link-dark">
+                <i class="fa-solid fa-calendar-check me-2"></i> Book an Appointment
             </a>
         </li>
-        @if(Auth::user()->isSuperAdmin())
-                <li>
-                    <a href="{{ route('superadmin.users') }}" class="btn btn-link logout-btn white-text">
-                        <i class="fa-solid fa-users"></i> Admins
-                    </a>
-                </li>
-            @endif
+    
+        @if (Auth::user()->isSuperAdmin())
+        <li class="nav-item">
+            <a href="{{ route('superadmin.users') }}" class="nav-link link-dark">
+                <i class="fa-solid fa-users me-2"></i> Admins
+            </a>
+        </li>
+        @endif
     </ul>
-
-    <form id="logout-form-sidebar" action="{{ route('logout') }}" method="POST">
-        @csrf
-        <button type="submit" class="logout-btn btn btn-link"><i
-                class="fa-solid fa-right-from-bracket">Logout</i></button>
-    </form>
+    <hr class="second-hr">
+    <div class="dropdown">
+        <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle"
+            id="dropdownUser1" aria-expanded="false">
+            <i class="fa-solid fa-user"></i>
+            <strong>{{ Auth::user()->name }}</strong>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-dark text-small shadow custom-dropdown-menu"
+            aria-labelledby="dropdownUser1" style="">
+            <li>
+                <form id="logout-form-dropdown" action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="dropdown-item">Sign out</button>
+                </form>
+            </li>
+        </ul>
+    </div>
 </div>
 <div id="content">
     <button id="open-sidebar-btn" class="btn btn-primary"><i class="fa-solid fa-bars"></i></button>

@@ -8,12 +8,12 @@ use App\Models\User;
 class SuperAdminController extends Controller
 {
     public function index()
-    {
-        $superAdmins = User::where('role', 'superadmin')->get();
-        $admins = User::where('role', 'admin')->get();
+{
+    $superAdmins = User::where('role', 'superadmin')->get();
+    $admins = User::where('role', 'admin')->paginate(10);
 
-        return view('superadmin.users', compact('superAdmins', 'admins'));
-    }
+    return view('superadmin.users', compact('superAdmins', 'admins'));
+}
 
     public function edit($id)
     {
@@ -71,5 +71,19 @@ class SuperAdminController extends Controller
     {
         $exists = User::where('email', $request->query('email'))->exists();
         return response()->json(['exists' => $exists]);
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $admins = User::where('role', '!=', 'superadmin')
+            ->where(function ($q) use ($query) {
+                $q->where('name', 'LIKE', "%{$query}%")
+                    ->orWhere('email', 'LIKE', "%{$query}%");
+            })
+            ->paginate(10);
+
+        return view('superadmin.users', compact('admins'))->with('query', $query);
     }
 }

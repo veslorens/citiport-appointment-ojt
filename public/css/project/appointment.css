@@ -185,97 +185,110 @@
 /* Sidebar styles */
 .sidebar {
     height: 100%;
-    width: 0;
+    width: 250px;
     position: fixed;
     top: 0;
-    left: 0;
-    background-color: #050301;
+    left: -250px; 
+    background-color: #f8f9fa;
     overflow-x: hidden;
-    transition: 0.5s;
     padding-top: 60px;
-    z-index: 1000; /* Ensure it's above other content */
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    transition: left 0.3s ease; 
 }
 
-.sidebar h2, .sidebar h5, .sidebar a {
-    color: white;
-    padding: 10px;
+.sidebar.open {
+    left: 0; 
+}
+
+#content {
+    transition: margin-left 0.3s ease; 
+}
+
+#content.open {
+    margin-left: 250px; 
+}
+
+#open-sidebar-btn {
+    display: block;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1100; 
+}
+
+@media (min-width: 768px) {
+    .sidebar {
+        left: 0; 
+    }
+
+    #content {
+        margin-left: 250px;
+    }
+
+    #open-sidebar-btn {
+        display: none; 
+    }
+}
+
+.sidebar .nav-link {
+    color: #000;
+    padding: 10px 20px;
     text-decoration: none;
     display: block;
 }
 
-.sidebar.open {
-    width: 250px;
-}
-
-#content {
-    transition: margin-left 0.5s;
-}
-
-/* Push content to the right when sidebar opens */
-#content.open {
-    margin-left: 250px;
-}
-
-.sidebar-menu {
-    list-style-type: none;
-    padding: 0;
-}
-
-.sidebar-menu li {
-    margin-bottom: 10px;
-}
-
-.sidebar-menu li a {
-    color: #333;
-    text-decoration: none;
-}
-
-.sidebar-menu li a:hover {
+.sidebar .nav-link:hover {
     background-color: #007bff;
+    color: #fff;
 }
 
-
-
-#logout-form-sidebar {
-    position: absolute;
-    bottom: 10px; 
-    left: 10px; 
+.dropdown .dropdown-menu {
+    background-color: #343a40;
 }
 
-
-.sidebar-menu .btn-link.logout-btn.white-text {
-    color: white;
-    font-weight: bold;
+.dropdown .dropdown-menu .dropdown-item {
+    color: #fff;
 }
 
-
-.sidebar-username {
-    background-color: #101314; 
-    color: white; 
-    padding: 10px; 
-    margin-bottom: 0; 
-    position: relative; 
-    top: -60px; 
-}
-
-/* In your external CSS file or within <style> tags in your HTML */
-#open-sidebar-btn {
-    background-color: #101314; 
-    border-color: #101314; 
-    color: #ffffff; 
-}
-
-#open-sidebar-btn:hover {
-    background-color: #101314; 
-    border-color: #101314; 
-    color: #ffffff; 
+.dropdown .dropdown-menu .dropdown-item:hover {
+    background-color: #222222;
 }
 
 .create-admin-btn {
-    margin-left: 189px; 
+    margin-left: 189px;
 }
 
 .search-input {
-    margin-left: -10px; 
+    margin-left: -10px;
+}
 
+.dropdown {
+    position: absolute;
+    bottom: 7px;
+    left: 5px;
+    color: #212529;
+    margin-bottom: 10px;
+}
+
+.dropdown-menu {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+}
+
+.first-hr {
+    height: 1px;
+    margin-bottom: 20px;
+    color: inherit;
+}
+
+.second-hr {
+    height: 1px;
+    width: 90%; 
+    margin: auto; 
+    margin-bottom: 60px;
 }
