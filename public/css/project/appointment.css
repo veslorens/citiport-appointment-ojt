@@ -283,6 +283,8 @@
 .first-hr {
     height: 1px;
     margin-bottom: 20px;
+    width: 90%; 
+    margin-left: 10px;
     color: inherit;
 }
 
