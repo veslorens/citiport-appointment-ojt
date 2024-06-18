@@ -1,4 +1,5 @@
 
+//check if admin is on the add and edit page
 linkId = false;
 if (appointmentId) {
     var bookedDate = new Date(booked_at);
@@ -8,6 +9,7 @@ if (appointmentId) {
     linkId = false;
 }
 
+//Sweet alert notification
 function emptyAll() {
     Swal.fire({
         title: 'Empty Form',
@@ -44,36 +46,50 @@ function lostConnection() {
     });
 }
 
+//working days starting on current date
 var workingDays = 5;
-var slotsPerTime = 2;
+//available slot per time
+var slotsPerTime = 1;
+//starting hours on slot pertime 
 var opening = 8;
-var closing = 10;
-var timeSlots = [];
+//eding hours on slot pertime
+var closing = 12;
 
+//generate time range on slot (08:00 - 17:00)
+var timeSlots = [];
 for (var i = opening; i < closing; i++) {
     var start = (i < 10 ? "0" : "") + i + ":00";
     var end = (i < 10 ? "0" : "") + i + ":59";
     timeSlots.push({ start: start, end: end, count: slotsPerTime });
 }
 
-var countTimeSlots = timeSlots.length;
-var slotsPerDay = slotsPerTime * countTimeSlots;
+//get current date and format the date (YYYY-MM-DD)
 var currentDate = new Date();
 var year = currentDate.getFullYear();
 var month = ("0" + (currentDate.getMonth() + 1)).slice(-2);
 var day = ("0" + currentDate.getDate()).slice(-2);
 var formattedToday = year + "-" + month + "-" + day;
-var datesArray = [];
 
+//get the date list base on working days range, time, and lot per time. 
+//also remove the sundays and saturdays on the datesArray lits
+var datesArray = [];
+var countTimeSlots = timeSlots.length;
+var slotsPerDay = slotsPerTime * countTimeSlots;
 datesArray.push([formattedToday, slotsPerDay]);
 while (datesArray.length < workingDays + 1) {
     currentDate.setDate(currentDate.getDate() + 1);
     if (currentDate.getDay() !== 6 && currentDate.getDay() !== 0) {
-        var formattedDate = currentDate.toISOString().slice(0, 10);
+        var year = currentDate.getFullYear();
+        var month = ("0" + (currentDate.getMonth() + 1)).slice(-2);
+        var day = ("0" + currentDate.getDate()).slice(-2);
+        var formattedDate = year + "-" + month + "-" + day;
         datesArray.push([formattedDate, slotsPerDay]);
     }
 }
 
+
+
+//object identify data range and time base on opening and closing time
 var dateCounts = [];
 var identifiedByCounts = [];
 appointments.forEach(function (appointment) {
@@ -101,23 +117,29 @@ appointments.forEach(function (appointment) {
     identifiedByCounts[formattedDateTime] = appointmentDate;
 });
 
+
+//get list of dates object for fullcalendar.io
 var eventsArray = [];
 for (var i = 0; i < datesArray.length; i++) {
     var date = datesArray[i][0];
     var count = datesArray[i][1];
     if (dateCounts.hasOwnProperty(date)) {
+        // subtract one on count value to make the list accureate
         count -= dateCounts[date];
         delete dateCounts[date];
     }
+    //count the available date and slots
     eventsArray.push({
         title: count,
         start: date,
     });
 }
 
+//available appointment on earliest date with slot count base on that date
 document.addEventListener("DOMContentLoaded", function () {
     let firstNonZeroTitle = null;
     let firstNonZeroStart = null;
+
     eventsArray.forEach((event) => {
         if (event.title > 0 && firstNonZeroTitle === null) {
             firstNonZeroTitle = event.title;
@@ -147,6 +169,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+
+//show the list of registered input from databse on this list
 var appointmentsArray = [];
 for (var i = 0; i < appointments.length; i++) {
     var appointmentDate = new Date(appointments[i].booked_at);
@@ -155,14 +179,19 @@ for (var i = 0; i < appointments.length; i++) {
     }
 }
 
+
+
 document.addEventListener("DOMContentLoaded", function () {
     let previousClickedEvent = null;
     var calendarEl = document.getElementById("calendar");
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: "dayGridMonth",
+        //list of array, dates, time, slots,
         events: eventsArray,
 
         eventClick: function (info) {
+
+            //color coding with legnend
             if (info.event.title === "0" || parseInt(info.event.title) < 0) {
                 return false;
             }
@@ -182,6 +211,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 slot.count = slotsPerTime;
             });
 
+
+            // when user click on date get the appointment on database and arrange on list
             formattedDate = `${info.event.start.getFullYear()}-${(
                 info.event.start.getMonth() + 1
             )
@@ -199,10 +230,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
 
+
             function isTimeInRange(time, start, end) {
                 return time >= start && time <= end;
             }
 
+            //calculate timeslots base on date list
             matchingAppointments.forEach((appointment) => {
                 var bookedTime = new Date(appointment.booked_at);
                 var bookedTimeString =
@@ -219,6 +252,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             });
 
+            //radio botton show when user click the date on calendar
             var formContainer = document.getElementById("radioForm");
             formContainer.innerHTML = "";
             timeSlots.forEach(function (slot) {
@@ -228,6 +262,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 input.setAttribute("value", slot.start);
                 var label = document.createElement("label");
 
+                //spacing only UI design only
                 if (slot.count === 0 || slot.count < 0) {
                     label.textContent =
                         slot.start +
@@ -264,6 +299,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 formContainer.appendChild(document.createElement("br"));
             });
 
+            //mobile compatibility
             var mediaQuery = window.matchMedia("(max-width: 768px)");
             if (mediaQuery.matches) {
                 var labels = document.querySelectorAll("label");
@@ -281,6 +317,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 submitButton.setAttribute("value", "Submit");
                 submitButton.classList.add("custom-button");
 
+                //submit data value from service detalails
                 submitButton.addEventListener("click", function () {
                     var client_name;
                     var client_contact_no;
@@ -306,6 +343,8 @@ document.addEventListener("DOMContentLoaded", function () {
                             }
                         }
                     });
+
+                    //add to varible selected by user
                     var csrfToken = document
                         .querySelector('meta[name="csrf-token"]')
                         .getAttribute("content");
@@ -319,6 +358,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         'input[name="timeSlot"]:checked'
                     );
 
+                    //controll process dont let user to do submit without completing the form 
+                    // with sweet alert notification
                     if (
                         (!service_name || !service_type || !office) &&
                         !selectedRadioButton
@@ -337,6 +378,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     ) {
                         emptyServiceDetails();
                     } else {
+                        // sweet alert confimation modal submit to the database 
+                        //with html download and barcode showing the user id after successfully submited to database 
+                        //add fue adjustment to barcodeCanvas UI
                         Swal.fire({
                             title: "Do you want to save the changes?",
                             showCancelButton: true,
@@ -415,12 +459,12 @@ document.addEventListener("DOMContentLoaded", function () {
                                         client_contact_no: client_contact_no,
                                     }));
 
+                                    // this part is to update the existing data from database
                                 } else if (linkId === true) {
                                     xhr.open("POST", `/appointment/${appointmentId}/update`, true);
                                     xhr.setRequestHeader("Content-Type", "application/json");
                                     xhr.setRequestHeader("X-CSRF-Token", csrfToken);
                                     var savedId = appointmentId
-
                                     document.getElementById("appointmentId").textContent = savedId;
                                     Swal.fire("Saved!", `Reference ID: ${savedId}`, "success")
                                         .then(() => {
@@ -445,11 +489,12 @@ document.addEventListener("DOMContentLoaded", function () {
                         });
                     }
                 });
-
+                //footer botton
                 var submitButtonDiv = document.getElementById("submitButton");
                 submitButtonDiv.appendChild(submitButton);
             }
         },
     });
+    //rerun calendar on reload
     calendar.render();
 });

@@ -74,6 +74,7 @@
                             <div class="col selectedDate">Selected Date</div>
                             <div class="col scheduleAvailable">Available</div>
                             <div class="col scheduleFullyBooked">Fully Booked</div>
+                            <div class="col scheduleSelected">Selected</div>
                         </div>
                     </div>
                 </div>

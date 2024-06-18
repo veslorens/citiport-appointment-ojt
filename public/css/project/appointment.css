@@ -53,6 +53,22 @@
         font-size: 14px;
     }
 }
+.scheduleSelected {
+    background-color: #eee8aa;
+    color: gold;
+    font-weight: bold;
+    border-radius: 5px;
+    text-align: center;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 2px;
+}
+
+@media only screen and (max-width: 768px) {
+    .scheduleSelected {
+        font-size: 14px;
+    }
+}
 
 .radio {
     margin-bottom: 10px;
