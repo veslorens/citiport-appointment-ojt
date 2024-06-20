@@ -127,7 +127,7 @@ setTimeout(function() {
 
 /// Search users for superadmin side
 document.addEventListener('DOMContentLoaded', function () {
-    var searchInputAdmin = document.getElementById('searchInputAdmin'); // Change ID
+    var searchInputAdmin = document.getElementById('searchInputAdmin');
     searchInputAdmin.addEventListener('input', function () {
         var searchText = searchInputAdmin.value.toLowerCase();
         var adminTableBody = document.getElementById('adminTableBody');
@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-//// Delete SweetAlert
+//// Admin Delete SweetAlert
 
 document.addEventListener('DOMContentLoaded', function () {
     const deleteButtons = document.querySelectorAll('.delete-btn');
