@@ -1,10 +1,8 @@
 <?php
 
 use Database\Seeders\AdminSeeder;
-use Database\Seeders\AdminSeeder;
 use Database\Seeders\SuperAdminSeeder;
 use Database\Seeders\AppointmentSeeder;
-use Database\Seeders\SuperAdminSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
