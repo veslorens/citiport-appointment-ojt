@@ -20,6 +20,10 @@ Route::middleware('auth')->group(function () {
         Route::delete('/superadmin/{id}/destroy', [SuperAdminController::class, 'destroy'])->name('superadmin.destroy');
         Route::get('/check-email', [SuperAdminController::class, 'checkEmail']);
         Route::get('/admin-users/search', [SuperAdminController::class, 'search'])->name('superadmin.search');
+
+Route::group(['middleware' => ['web']], function () {
+    Route::get('/', function () {
+        return view('welcome');
     });
 
     Route::get('/appointment', [AppointmentController::class, 'index'])->name('appointment.index');
@@ -34,5 +38,3 @@ Route::middleware('auth')->group(function () {
 Route::get('/login', function () {
     return view('login');
 });
-
-

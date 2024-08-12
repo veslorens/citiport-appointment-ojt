@@ -1,3 +1,4 @@
+
 /**
  * First, we will load all of this project's JavaScript dependencies which
  * includes libraries such as jQuery and Bootstrap. It is a great starting point when
