@@ -2,9 +2,8 @@
 
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\SuperAdminController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Middleware\SuperAdminMiddleware;
 use App\Http\Controllers\AdminController;
 
 
@@ -32,8 +31,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/appointments/search', [AppointmentController::class, 'search'])->name('appointment.search');
 });
 
-Route::get('/home', function () {
+Route::get('/login', function () {
     return view('login');
-})->middleware('auth');
+});
 
 
