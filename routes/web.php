@@ -20,6 +20,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/superadmin/{id}/update', [SuperAdminController::class, 'update'])->name('superadmin.update');
         Route::delete('/superadmin/{id}/destroy', [SuperAdminController::class, 'destroy'])->name('superadmin.destroy');
         Route::get('/check-email', [SuperAdminController::class, 'checkEmail']);
+        Route::get('/admin-users/search', [SuperAdminController::class, 'search'])->name('superadmin.search');
     });
 
     Route::get('/appointment', [AppointmentController::class, 'index'])->name('appointment.index');
@@ -28,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/appointment/{id}/edit', [AppointmentController::class, 'edit'])->name('appointment.edit');
     Route::post('/appointment/{id}/update', [AppointmentController::class, 'update'])->name('appointment.update');
     Route::delete('/appointment/{id}', [AppointmentController::class, 'destroy'])->name('appointment.destroy');
+    Route::get('/appointments/search', [AppointmentController::class, 'search'])->name('appointment.search');
 });
 
 Route::get('/home', function () {

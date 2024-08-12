@@ -11,11 +11,9 @@
     <link rel="stylesheet" href="{{ asset('css/fontawesome/fontawesome.min.css') }}">
 </head>
 
-<header>
-
-</header>
-
 <body>
+
+    <header></header>
 
     <div class="content">
         @yield('content')
@@ -28,19 +26,19 @@
         @include('superadmin.modal.edit')
     </div>
 
-    <footer>
-
-    </footer>
+    <footer></footer>
 
     <script>
         var appointments = @json($appointments ?? []);
         var appointmentId = @json($appointment->id ?? null);
     </script>
 
-    <script src="{{ asset('js/project/schedule.js') }}"></script>
-    <script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/fullcalendar/core/index.global.min.js') }}" defer></script>
     <script src="{{ asset('js/fullcalendar/daygrid/index.global.min.js') }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+    <script src="{{ asset('js/bootstrap/bootstrap.bundle.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('js/project/schedule.js') }}"></script>
 </body>
 
 </html>

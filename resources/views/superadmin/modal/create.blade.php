@@ -1,4 +1,3 @@
-<!-- Modal for creating a new admin -->
 <div class="modal fade" id="createAdminModal" tabindex="-1" aria-labelledby="createAdminModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
