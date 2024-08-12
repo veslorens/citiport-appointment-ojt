@@ -22,9 +22,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/check-email', [SuperAdminController::class, 'checkEmail']);
     });
 
-
-
-
     Route::get('/appointment', [AppointmentController::class, 'index'])->name('appointment.index');
     Route::get('/appointment/schedule', [AppointmentController::class, 'schedule'])->name('appointment.schedule');
     Route::post('/appointment/store', [AppointmentController::class, 'store'])->name('appointment.store');
