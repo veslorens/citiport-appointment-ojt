@@ -9,10 +9,20 @@ use Carbon\Carbon;
 
 class AppointmentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $appointment = Appointment::paginate(10);
-        return view('appointment.index', ['appointments' => $appointment]);
+        $query = $request->input('query');
+
+        if ($query) {
+            $appointments = Appointment::where('id', 'LIKE', "%{$query}%")
+                ->orWhere('service_name', 'LIKE', "%{$query}%")
+                ->orWhere('office', 'LIKE', "%{$query}%")
+                ->paginate(10);
+        } else {
+            $appointments = Appointment::paginate(10);
+        }
+
+        return view('appointment.index', compact('appointments'));
     }
 
     public function create()
@@ -80,5 +90,10 @@ class AppointmentController extends Controller
         $appointment->updated_at = date('Y-m-d H:i:s');
         $appointment->save();
         return response()->json(['message' => 'Appointment updated successfully'], 200);
+    }
+  
+    public function search(Request $request)
+    {
+        return $this->index($request);
     }
 }

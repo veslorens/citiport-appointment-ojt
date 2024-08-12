@@ -29,6 +29,247 @@ function emptyTimeSlots() {
 }
 
 function emptyServiceDetails() {
+    var modal = document.getElementById("emptyServiceDetails");
+    modal.classList.add("show");
+    modal.style.display = "block";
+}
+
+function closeEmptyServiceDetails() {
+    var modal = document.getElementById("emptyServiceDetails");
+    modal.classList.remove("show");
+    modal.style.display = "none";
+}
+
+function confirmationOptions() {
+    var modal = document.getElementById("confirmationOptions");
+    modal.classList.add("show");
+    modal.style.display = "block";
+}
+
+function closeConfirmationOptions() {
+    var modal = document.getElementById("confirmationOptions");
+    modal.classList.remove("show");
+    modal.style.display = "none";
+}
+
+function success() {
+    var modal = document.getElementById("success");
+    modal.classList.add("show");
+    modal.style.display = "block";
+}
+
+function closeSuccess() {
+    var modal = document.getElementById("success");
+    modal.classList.remove("show");
+    modal.style.display = "none";
+    window.location.reload();
+}
+
+///////////////////////////////////
+
+// Appointment Delete SweetAlert
+document.addEventListener('DOMContentLoaded', function () {
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const appointmentId = this.getAttribute('data-id');
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You won\'t be able to revert this!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('deleteForm' + appointmentId).submit();
+                }
+            });
+        });
+    });
+});
+
+setTimeout(function() {
+    var successAlert = document.getElementById('successAlert');
+    successAlert.style.display = 'none';
+}, 2000);
+
+ /// Sidebar
+ document.addEventListener('DOMContentLoaded', function() {
+    var openSidebarBtn = document.getElementById('open-sidebar-btn');
+    var sidebar = document.getElementById('sidebar');
+    var content = document.getElementById('content');
+
+    openSidebarBtn.addEventListener('click', function() {
+        sidebar.classList.toggle('open');
+        content.classList.toggle('open');
+
+        if (sidebar.classList.contains('open')) {
+            openSidebarBtn.innerHTML = '<i class="fa-solid fa-times"></i>';
+        } else {
+            openSidebarBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+        }
+    });
+});
+
+
+/// Search users for superadmin side
+document.addEventListener('DOMContentLoaded', function () {
+    var searchInputAdmin = document.getElementById('searchInputAdmin');
+    searchInputAdmin.addEventListener('input', function () {
+        var searchText = searchInputAdmin.value.toLowerCase();
+        var adminTableBody = document.getElementById('adminTableBody');
+        var rows = adminTableBody.getElementsByTagName('tr');
+
+        for (var i = 0; i < rows.length; i++) {
+            var name = rows[i].getElementsByTagName('td')[1].innerText.toLowerCase();
+            var email = rows[i].getElementsByTagName('td')[2].innerText.toLowerCase();
+        }
+    });
+});
+
+//// Search bar for appointments
+document.addEventListener('DOMContentLoaded', function () {
+    var searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', function () {
+        var searchText = searchInput.value.toLowerCase();
+        var appointmentTableBody = document.getElementById('AppointmentTableBody');
+        var rows = appointmentTableBody.getElementsByTagName('tr');
+
+        for (var i = 0; i < rows.length; i++) {
+            var id = rows[i].getElementsByTagName('th')[0].innerText.toLowerCase();
+            var serviceName = rows[i].getElementsByTagName('td')[0].innerText.toLowerCase();
+            var office = rows[i].getElementsByTagName('td')[2].innerText.toLowerCase();
+        }
+    });
+});
+
+
+//// Admin Delete SweetAlert
+
+document.addEventListener('DOMContentLoaded', function () {
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const adminId = this.getAttribute('data-id');
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You won\'t be able to revert this!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('deleteForm' + adminId).submit();
+                }
+            });
+        });
+    });
+});
+
+/// Create admin
+const form = document.getElementById('createAdminForm');
+    if (form) {
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const passwordConfirmationInput = document.getElementById('password_confirmation');
+        const nameFeedback = document.getElementById('nameFeedback');
+        const emailFeedback = document.getElementById('emailFeedback');
+        const passwordFeedback = document.getElementById('passwordFeedback');
+        const passwordConfirmationFeedback = document.getElementById('passwordConfirmationFeedback');
+
+        form.addEventListener('submit', function(event) {
+            let valid = true;
+
+            if (passwordInput.value.length < 8) {
+                valid = false;
+                passwordInput.classList.add('is-invalid');
+                passwordFeedback.textContent = 'Password must be at least 8 characters long.';
+            } else {
+                passwordInput.classList.remove('is-invalid');
+                passwordFeedback.textContent = '';
+            }
+
+            if (passwordInput.value !== passwordConfirmationInput.value) {
+                valid = false;
+                passwordConfirmationInput.classList.add('is-invalid');
+                passwordConfirmationFeedback.textContent = 'Passwords do not match.';
+            } else {
+                passwordConfirmationInput.classList.remove('is-invalid');
+                passwordConfirmationFeedback.textContent = '';
+            }
+
+            if (!valid) {
+                event.preventDefault();
+            }
+        });
+
+        emailInput.addEventListener('blur', function() {
+            fetch(`/check-email?email=${encodeURIComponent(emailInput.value)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.exists) {
+                        emailInput.classList.add('is-invalid');
+                        emailFeedback.textContent = 'Email is already taken.';
+                    } else {
+                        emailInput.classList.remove('is-invalid');
+                        emailFeedback.textContent = '';
+                    }
+                });
+        });
+    }
+
+///Edit Modal
+document.addEventListener('DOMContentLoaded', function () {
+    var editAdminModal = document.getElementById('editAdminModal');
+    if (editAdminModal) {
+        editAdminModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var id = button.getAttribute('data-id');
+            var name = button.getAttribute('data-name');
+            var email = button.getAttribute('data-email');
+
+            var modalTitle = editAdminModal.querySelector('.modal-title');
+            var modalForm = editAdminModal.querySelector('#editAdminForm');
+            var modalName = editAdminModal.querySelector('#modal-name');
+            var modalEmail = editAdminModal.querySelector('#modal-email');
+
+            modalTitle.textContent = 'Edit Admin: ' + name;
+            modalForm.action = `/superadmin/${id}/update`;
+            modalName.value = name;
+            modalEmail.value = email;
+        });
+    }
+});
+
+/////DropDown
+document.addEventListener('DOMContentLoaded', function () {
+    var dropdownToggle = document.querySelector('.dropdown-toggle');
+    var dropdownMenu = document.querySelector('.dropdown-menu');
+
+    dropdownToggle.addEventListener('click', function () {
+        dropdownMenu.classList.toggle('show');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function (event) {
+        if (!dropdownToggle.contains(event.target)) {
+            dropdownMenu.classList.remove('show');
+        }
+    });
+});
+
+///////////////////////
+
+var workingDays = 10;
+=======
     Swal.fire({
         title: 'Empty Service Details',
         text: 'Please provide service details before proceeding.',

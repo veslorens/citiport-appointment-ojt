@@ -11,20 +11,23 @@
 
 </head>
 
-<header>
-
-</header>
-
 <body>
+
+    <header></header>
 
     <div class="content">
         @yield('content')
+        @include('appointment.modal.confirmation-options')
+        @include('appointment.modal.empty-All')
+        @include('appointment.modal.empty-Service-Details')
+        @include('appointment.modal.empty-TimeSlots')
+        @include('appointment.modal.success')
+        @include('superadmin.modal.create')
+        @include('superadmin.modal.edit')
         @include('appointment.modal.sendReference')
     </div>
 
-    <footer>
-
-    </footer>
+    <footer></footer>
 
 
     <script>
@@ -32,7 +35,6 @@
         var appointmentId = @json($appointment->id ?? null);
         var booked_at = @json($appointment->booked_at ?? null);
     </script>
-
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
@@ -40,6 +42,10 @@
     <script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/fullcalendar/core/index.global.min.js') }}" defer></script>
     <script src="{{ asset('js/fullcalendar/daygrid/index.global.min.js') }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+    <script src="{{ asset('js/bootstrap/bootstrap.bundle.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('js/project/schedule.js') }}"></script>
 </body>
 
 </html>

@@ -7,12 +7,21 @@ use Illuminate\Http\Request;
 
 class SuperAdminMiddleware
 {
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->user() && auth()->user()->isAdmin()) {
-            return $next($request);
+      
+        if ($request->user() && $request->user()->role !== 'superadmin') {
+          
+            return redirect()->route('home')->with('error', 'Unauthorized access.');
         }
 
-        abort(403, 'Unauthorized action.');
+        return $next($request);
     }
 }
